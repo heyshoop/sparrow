@@ -1,8 +1,13 @@
 package cn.sheetanchor.sparrow.sys.model;
 
+import cn.sheetanchor.common.utils.IdGen;
+import cn.sheetanchor.common.utils.StringUtils;
+import cn.sheetanchor.common.utils.UserUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * @Author 阁楼麻雀
@@ -17,7 +22,6 @@ public class SysLog implements Serializable{
     private String id;
     private String type;
     private String title;
-    private String createBy;
     private Date createDate;
     private String remoteAddr;
     private String userAgent;
@@ -54,16 +58,6 @@ public class SysLog implements Serializable{
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Basic
-    @Column(name = "create_by")
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
     }
 
     @Basic
@@ -172,5 +166,70 @@ public class SysLog implements Serializable{
         result = 31 * result + (params != null ? params.hashCode() : 0);
         result = 31 * result + (exception != null ? exception.hashCode() : 0);
         return result;
+    }
+
+    // 日志类型（1：接入日志；2：错误日志）
+    public static final String TYPE_ACCESS = "1";
+    public static final String TYPE_EXCEPTION = "2";
+    private SysUser updateBy;//更新人
+    private SysUser createBy;
+
+    @ManyToOne
+    @JoinColumn(name = "id",insertable = false,updatable = false)
+    public SysUser getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(SysUser updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id",insertable = false,updatable = false)
+    public SysUser getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(SysUser createBy) {
+        this.createBy = createBy;
+    }
+
+    /**
+     * 设置请求参数
+     * @param paramMap
+     */
+    @Transient
+    public void setParams(Map paramMap){
+        if (paramMap == null){
+            return;
+        }
+        StringBuilder params = new StringBuilder();
+        for (Map.Entry<String, String[]> param : ((Map<String, String[]>)paramMap).entrySet()){
+            params.append(("".equals(params.toString()) ? "" : "&") + param.getKey() + "=");
+            String paramValue = (param.getValue() != null && param.getValue().length > 0 ? param.getValue()[0] : "");
+            params.append(StringUtils.abbr(StringUtils.endsWithIgnoreCase(param.getKey(), "password") ? "" : paramValue, 100));
+        }
+        this.params = params.toString();
+    }
+    /**
+     * 是否是新记录（默认：false），调用setIsNewRecord()设置新记录，使用自定义ID。
+     * 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
+     */
+    protected boolean isNewRecord = false;
+    /**
+     * 插入之前执行方法，需要手动调用
+     */
+    @Transient
+    public void preInsert(){
+        // 不限制ID为UUID，调用setIsNewRecord()使用自定义ID
+        if (!this.isNewRecord){
+            setId(IdGen.uuid());
+        }
+        SysUser user = UserUtils.getUser();
+        if (org.apache.commons.lang3.StringUtils.isNotBlank(user.getId())){
+            this.updateBy = user;
+            this.createBy = user;
+        }
+        this.createDate = new Date();
     }
 }

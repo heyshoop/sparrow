@@ -2,7 +2,7 @@ package cn.sheetanchor.sparrow.sys.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @Author 阁楼麻雀
@@ -237,5 +237,9 @@ public class SysMenu implements Serializable{
         result = 31 * result + (remarks != null ? remarks.hashCode() : 0);
         result = 31 * result + (delFlag != null ? delFlag.hashCode() : 0);
         return result;
+    }
+    @Transient
+    public static String getRootId(){
+        return "1";
     }
 }

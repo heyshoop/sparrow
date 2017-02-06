@@ -2,7 +2,7 @@ package cn.sheetanchor.sparrow.sys.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @Author 阁楼麻雀

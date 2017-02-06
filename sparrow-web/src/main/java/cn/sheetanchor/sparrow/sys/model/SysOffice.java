@@ -2,7 +2,8 @@ package cn.sheetanchor.sparrow.sys.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @Author 阁楼麻雀
@@ -343,5 +344,16 @@ public class SysOffice implements Serializable{
         result = 31 * result + (remarks != null ? remarks.hashCode() : 0);
         result = 31 * result + (delFlag != null ? delFlag.hashCode() : 0);
         return result;
+    }
+
+    private Set<SysUser> users;
+
+    @OneToMany(mappedBy = "office")
+    public Set<SysUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<SysUser> users) {
+        this.users = users;
     }
 }

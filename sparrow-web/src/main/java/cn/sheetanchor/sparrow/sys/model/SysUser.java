@@ -2,7 +2,7 @@ package cn.sheetanchor.sparrow.sys.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -306,16 +306,43 @@ public class SysUser implements Serializable{
     }
 
     private Set<SysRole> roles;
+    private SysOffice office;
 
     @ManyToMany
     @JoinTable(name="sys_user_role",
-            joinColumns={@JoinColumn(name="user_id")},
-            inverseJoinColumns={@JoinColumn(name="role_id")})
+            joinColumns={@JoinColumn(name="id")},
+            inverseJoinColumns={@JoinColumn(name="id")})
     public Set<SysRole> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<SysRole> roles) {
         this.roles = roles;
+    }
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id")
+    public SysOffice getOffice() {
+        return office;
+    }
+
+    public void setOffice(SysOffice office) {
+        this.office = office;
+    }
+
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/6 16:33
+     * @Desc 是否超级管理员
+     */
+    @Transient
+    public boolean isAdmin(){
+        boolean flag = false;
+        Set<SysRole> roles = getRoles();
+        for(SysRole role : roles){
+            if(role.getEnname().equals("superadmin")) flag = true;
+        }
+        return flag;
     }
 }
