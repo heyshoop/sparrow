@@ -3,7 +3,7 @@ package cn.sheetanchor.sparrow.sys.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @Author 阁楼麻雀
@@ -305,18 +305,18 @@ public class SysUser implements Serializable{
         return result;
     }
 
-    private Set<SysRole> roles;
+    private List<SysRole> roles;
     private SysOffice office;
 
     @ManyToMany
     @JoinTable(name="sys_user_role",
             joinColumns={@JoinColumn(name="id")},
             inverseJoinColumns={@JoinColumn(name="id")})
-    public Set<SysRole> getRoles() {
+    public List<SysRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<SysRole> roles) {
+    public void setRoles(List<SysRole> roles) {
         this.roles = roles;
     }
 
@@ -339,10 +339,25 @@ public class SysUser implements Serializable{
     @Transient
     public boolean isAdmin(){
         boolean flag = false;
-        Set<SysRole> roles = getRoles();
+        List<SysRole> roles = getRoles();
         for(SysRole role : roles){
             if(role.getEnname().equals("superadmin")) flag = true;
         }
         return flag;
+    }
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/7 15:21
+     * @Desc 获取当前登录人所有菜单
+     */
+    public List<SysMenu> getMenuList() {
+        List<SysMenu> menus = null;
+        List<SysRole> roles = getRoles();
+        for(SysRole role : roles){
+            List<SysMenu> menu = role.getMenus();
+            menus.addAll(menu);
+        }
+        return menus;
     }
 }

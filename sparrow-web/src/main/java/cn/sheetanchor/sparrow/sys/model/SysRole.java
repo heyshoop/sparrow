@@ -3,6 +3,7 @@ package cn.sheetanchor.sparrow.sys.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author 阁楼麻雀
@@ -210,5 +211,28 @@ public class SysRole implements Serializable{
         result = 31 * result + (remarks != null ? remarks.hashCode() : 0);
         result = 31 * result + (delFlag != null ? delFlag.hashCode() : 0);
         return result;
+    }
+
+    // 数据范围（1：所有数据；2：所在公司及以下数据；3：所在公司数据；4：所在部门及以下数据；5：所在部门数据；8：仅本人数据；9：按明细设置）
+    public static final String DATA_SCOPE_ALL = "1";
+    public static final String DATA_SCOPE_COMPANY_AND_CHILD = "2";
+    public static final String DATA_SCOPE_COMPANY = "3";
+    public static final String DATA_SCOPE_OFFICE_AND_CHILD = "4";
+    public static final String DATA_SCOPE_OFFICE = "5";
+    public static final String DATA_SCOPE_SELF = "8";
+    public static final String DATA_SCOPE_CUSTOM = "9";
+
+    private List<SysMenu> menus;
+
+    @ManyToMany
+    @JoinTable(name="sys_role_menu",
+            joinColumns={@JoinColumn(name="id")},
+            inverseJoinColumns={@JoinColumn(name="id")})
+    public List<SysMenu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<SysMenu> menus) {
+        this.menus = menus;
     }
 }

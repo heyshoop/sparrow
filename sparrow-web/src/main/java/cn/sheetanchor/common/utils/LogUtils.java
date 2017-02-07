@@ -32,7 +32,7 @@ public class LogUtils {
 	/**
 	 * 保存日志
 	 */
-	public void saveLog(HttpServletRequest request, String title){
+	public static void saveLog(HttpServletRequest request, String title){
 		saveLog(request, null, null, title);
 	}
 	
@@ -160,6 +160,4 @@ public class LogUtils {
 		logUtils.menuDao = this.menuDao;
 		logUtils.logDao = this.logDao;
 	}
-
-	
 }

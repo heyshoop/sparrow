@@ -22,4 +22,11 @@ public interface UserDao {
      * @Desc 根据登录名查询用户信息
      */
     public SysUser findByLoginName(String loginName);
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/7 17:02
+     * @Desc 更新用户信息
+     */
+    SysUser update(SysUser user);
 }

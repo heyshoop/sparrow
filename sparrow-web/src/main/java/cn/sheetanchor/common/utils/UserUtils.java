@@ -1,7 +1,6 @@
 package cn.sheetanchor.common.utils;
 
 import cn.sheetanchor.common.security.SystemAuthorizingRealm.Principal;
-import cn.sheetanchor.common.service.BaseService;
 import cn.sheetanchor.sparrow.sys.dao.*;
 import cn.sheetanchor.sparrow.sys.model.*;
 import org.apache.shiro.SecurityUtils;

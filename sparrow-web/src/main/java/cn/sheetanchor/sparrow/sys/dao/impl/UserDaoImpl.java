@@ -36,4 +36,14 @@ public class UserDaoImpl extends HibernateBaseDao<SysUser,Integer> implements Us
     public SysUser findByLoginName(String loginName) {
         return findUniqueByProperty("loginName", loginName);
     }
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/7 17:02
+     * @Desc 更新用户信息
+     */
+    public SysUser update(SysUser bean) {
+        getSession().update(bean);
+        return bean;
+    }
 }
