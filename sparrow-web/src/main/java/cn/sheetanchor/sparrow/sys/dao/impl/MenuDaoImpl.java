@@ -4,6 +4,7 @@ import cn.sheetanchor.common.hibernate.HibernateBaseDao;
 import cn.sheetanchor.sparrow.sys.dao.MenuDao;
 import cn.sheetanchor.sparrow.sys.model.SysMenu;
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Date 2017/2/6
  * @Desc
  */
+@Repository
 public class MenuDaoImpl extends HibernateBaseDao<SysMenu,Integer> implements MenuDao{
 
     public List<SysMenu> findAllList() {

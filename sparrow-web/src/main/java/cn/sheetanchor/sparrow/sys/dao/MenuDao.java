@@ -11,5 +11,12 @@ import java.util.List;
  * @Desc 菜单Dao
  */
 public interface MenuDao {
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/7 15:13
+     * @Desc 查询所有菜单
+     */
     public List<SysMenu> findAllList();
+
 }

@@ -3,6 +3,7 @@ package cn.sheetanchor.sparrow.sys.dao.impl;
 import cn.sheetanchor.common.hibernate.HibernateBaseDao;
 import cn.sheetanchor.sparrow.sys.dao.LogDao;
 import cn.sheetanchor.sparrow.sys.model.SysLog;
+import org.springframework.stereotype.Repository;
 
 /**
  * @Author 阁楼麻雀
@@ -10,6 +11,7 @@ import cn.sheetanchor.sparrow.sys.model.SysLog;
  * @Date 2017/2/6
  * @Desc
  */
+@Repository
 public class LogDaoImpl extends HibernateBaseDao<SysLog,Integer> implements LogDao{
 
     @Override

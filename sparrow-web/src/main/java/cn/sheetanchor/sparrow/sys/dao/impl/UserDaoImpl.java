@@ -3,6 +3,7 @@ package cn.sheetanchor.sparrow.sys.dao.impl;
 import cn.sheetanchor.common.hibernate.HibernateBaseDao;
 import cn.sheetanchor.sparrow.sys.dao.UserDao;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
+import org.springframework.stereotype.Repository;
 
 /**
  * @Author 阁楼麻雀
@@ -10,6 +11,7 @@ import cn.sheetanchor.sparrow.sys.model.SysUser;
  * @Date 2017/2/6
  * @Desc
  */
+@Repository
 public class UserDaoImpl extends HibernateBaseDao<SysUser,Integer> implements UserDao{
     @Override
     protected Class<SysUser> getEntityClass() {
