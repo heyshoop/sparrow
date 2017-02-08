@@ -4,6 +4,7 @@ import cn.sheetanchor.common.hibernate.HibernateBaseDao;
 import cn.sheetanchor.sparrow.sys.dao.OfficeDao;
 import cn.sheetanchor.sparrow.sys.model.SysOffice;
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Date 2017/2/7
  * @Desc
  */
+@Repository
 public class OfficeDaoImpl extends HibernateBaseDao<SysOffice,Integer> implements OfficeDao{
     @Override
     protected Class<SysOffice> getEntityClass() {

@@ -57,11 +57,11 @@
   </filter>
   <filter-mapping>
     <filter-name>sitemeshFilter</filter-name>
-    <url-pattern>/a/*</url-pattern>
+    <url-pattern>/admin/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>sitemeshFilter</filter-name>
-    <url-pattern>/f/*</url-pattern>
+    <url-pattern>/front/*</url-pattern>
   </filter-mapping>
 
   <!-- MVC Servlet -->

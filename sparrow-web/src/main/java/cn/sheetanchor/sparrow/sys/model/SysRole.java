@@ -226,8 +226,8 @@ public class SysRole implements Serializable{
 
     @ManyToMany
     @JoinTable(name="sys_role_menu",
-            joinColumns={@JoinColumn(name="id")},
-            inverseJoinColumns={@JoinColumn(name="id")})
+            joinColumns={@JoinColumn(name="role_id")},
+            inverseJoinColumns={@JoinColumn(name="menu_id")})
     public List<SysMenu> getMenus() {
         return menus;
     }

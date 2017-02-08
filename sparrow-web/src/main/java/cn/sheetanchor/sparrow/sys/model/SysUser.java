@@ -310,8 +310,8 @@ public class SysUser implements Serializable{
 
     @ManyToMany
     @JoinTable(name="sys_user_role",
-            joinColumns={@JoinColumn(name="id")},
-            inverseJoinColumns={@JoinColumn(name="id")})
+            joinColumns={@JoinColumn(name="user_id")},
+            inverseJoinColumns={@JoinColumn(name="role_id")})
     public List<SysRole> getRoles() {
         return roles;
     }
@@ -321,7 +321,7 @@ public class SysUser implements Serializable{
     }
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id")
+    @JoinColumn(name = "office_id",insertable = false,updatable = false)
     public SysOffice getOffice() {
         return office;
     }
@@ -351,6 +351,7 @@ public class SysUser implements Serializable{
      * @Date 2017/2/7 15:21
      * @Desc 获取当前登录人所有菜单
      */
+    @Transient
     public List<SysMenu> getMenuList() {
         List<SysMenu> menus = null;
         List<SysRole> roles = getRoles();
