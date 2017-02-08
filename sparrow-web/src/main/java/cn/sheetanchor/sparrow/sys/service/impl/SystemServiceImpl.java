@@ -23,9 +23,6 @@ import java.util.Date;
 @Transactional
 public class SystemServiceImpl implements SystemService,InitializingBean {
 
-
-
-
     @Resource
     private UserDao userDao;
     @Resource

@@ -8,6 +8,7 @@ import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -18,10 +19,35 @@ import java.util.List;
  * @Date 2017/2/6 13:47
  * @Desc 用户工具类
  */
-
+@Component
 public class UserUtils {
 
-	private static UserUtils userUtils;
+	@Resource
+	private UserDao userDao;
+	@Resource
+	private RoleDao roleDao;
+	@Resource
+	private MenuDao menuDao;
+	@Resource
+	private AreaDao areaDao;
+	@Resource
+	private OfficeDao officeDao;
+
+	private static UserDao staticUserDao;
+	private static RoleDao staticRoleDao;
+	private static MenuDao staticMenuDao;
+	private static AreaDao staticAreaDao;
+	private static OfficeDao staticOfficeDao;
+	@PostConstruct
+	public void init(){
+		//静态方法中注入bean
+		UserUtils.staticUserDao = userDao;
+		UserUtils.staticRoleDao = roleDao;
+		UserUtils.staticMenuDao = menuDao;
+		UserUtils.staticAreaDao = areaDao;
+		UserUtils.staticOfficeDao = officeDao;
+
+	}
 
 	public static final String USER_CACHE = "userCache";
 	public static final String USER_CACHE_ID_ = "id_";
@@ -43,7 +69,7 @@ public class UserUtils {
 	public static SysUser get(Integer id){
 		SysUser user = (SysUser)CacheUtils.get(USER_CACHE, USER_CACHE_ID_ + id);
 		if (user ==  null){
-			user = userUtils.userDao.findById(id);
+			user = staticUserDao.findById(id);
 			if (user == null){
 				return null;
 			}
@@ -61,7 +87,7 @@ public class UserUtils {
 	public static SysUser getByLoginName(String loginName){
 		SysUser user = (SysUser)CacheUtils.get(USER_CACHE, USER_CACHE_LOGIN_NAME_ + loginName);
 		if (user == null){
-			user = userUtils.userDao.findByLoginName(user.getLoginName());
+			user = staticUserDao.findByLoginName(loginName);
 			if (user == null){
 				return null;
 			}
@@ -123,7 +149,7 @@ public class UserUtils {
 		if (roleList == null){
 			SysUser user = getUser();
 			if (user.isAdmin()){
-				roleList = userUtils.roleDao.findAllList();
+				roleList = staticRoleDao.findAllList();
 			}else{
 				roleList = user.getRoles();
 			}
@@ -142,7 +168,7 @@ public class UserUtils {
 		if (menuList == null){
 			SysUser user = getUser();
 			if (user.isAdmin()){
-				menuList = userUtils.menuDao.findAllList();
+				menuList = staticMenuDao.findAllList();
 			}else{
 				menuList = user.getMenuList();
 			}
@@ -159,7 +185,7 @@ public class UserUtils {
 		@SuppressWarnings("unchecked")
 		List<SysArea> areaList = (List<SysArea>)getCache(CACHE_AREA_LIST);
 		if (areaList == null){
-			areaList = userUtils.areaDao.findAllList();
+			areaList = staticAreaDao.findAllList();
 			putCache(CACHE_AREA_LIST, areaList);
 		}
 		return areaList;
@@ -175,7 +201,7 @@ public class UserUtils {
 		if (officeList == null){
 			SysUser user = getUser();
 			if (user.isAdmin()){
-				officeList = userUtils.officeDao.findAllList();
+				officeList = staticOfficeDao.findAllList();
 			}else{
 				SysOffice office = user.getOffice();
 				officeList.add(office);
@@ -193,7 +219,7 @@ public class UserUtils {
 		@SuppressWarnings("unchecked")
 		List<SysOffice> officeList = (List<SysOffice>)getCache(CACHE_OFFICE_ALL_LIST);
 		if (officeList == null){
-			officeList = userUtils.officeDao.findAllList();
+			officeList = staticOfficeDao.findAllList();
 		}
 		return officeList;
 	}
@@ -257,24 +283,5 @@ public class UserUtils {
 		getSession().removeAttribute(key);
 	}
 
-	@Resource
-	private UserDao userDao;
-	@Resource
-	private RoleDao roleDao;
-	@Resource
-	private MenuDao menuDao;
-	@Resource
-	private AreaDao areaDao;
-	@Resource
-	private OfficeDao officeDao;
-	@PostConstruct
-	public void init(){
-		//静态方法中注入bean
-		userUtils = this;
-		userUtils.userDao = this.userDao;
-		userUtils.roleDao = this.roleDao;
-		userUtils.menuDao = this.menuDao;
-		userUtils.areaDao = this.areaDao;
-		userUtils.officeDao = this.officeDao;
-	}
+
 }

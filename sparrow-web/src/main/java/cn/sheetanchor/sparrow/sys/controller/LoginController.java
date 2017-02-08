@@ -54,7 +54,7 @@ public class LoginController extends BaseController {
 		if(principal != null && !principal.isMobileLogin()){
 			return "redirect:" + adminPath;
 		}
-		return "modules/sys/sysLogin";
+		return "sys/adminLogin";
 	}
 
 	/**
@@ -102,8 +102,8 @@ public class LoginController extends BaseController {
 		if (mobile){
 	        return renderString(response, model);
 		}
-		
-		return "modules/sys/sysLogin";
+
+		return "sys/adminLogin";
 	}
 
 	/**
@@ -138,11 +138,11 @@ public class LoginController extends BaseController {
 				return renderString(response, principal);
 			}
 			if (request.getParameter("index") != null){
-				return "modules/sys/sysIndex";
+				return "sys/adminIndex";
 			}
 			return "redirect:" + adminPath + "/login";
 		}
-		return "modules/sys/sysIndex";
+		return "sys/adminIndex";
 	}
 	
 	/**
