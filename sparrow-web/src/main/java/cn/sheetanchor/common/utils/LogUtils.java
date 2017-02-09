@@ -8,7 +8,17 @@ import cn.sheetanchor.sparrow.sys.model.SysUser;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.hibernate.FlushMode;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.orm.hibernate4.SessionFactoryUtils;
+import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.method.HandlerMethod;
 
 import javax.annotation.PostConstruct;
@@ -27,8 +37,6 @@ import java.util.Map;
 public class LogUtils {
 	
 	public static final String CACHE_MENU_NAME_PATH_MAP = "menuNamePathMap";
-
-
 	@Resource
 	private MenuDao menuDao;
 	@Resource
@@ -77,16 +85,19 @@ public class LogUtils {
 		private SysLog log;
 		private Object handler;
 		private Exception ex;
-		
+
 		public SaveLogThread(SysLog log, Object handler, Exception ex){
 			super(SaveLogThread.class.getSimpleName());
 			this.log = log;
 			this.handler = handler;
 			this.ex = ex;
 		}
-		
 		@Override
 		public void run() {
+			// 为当前线程绑定一个session对象,让dao中使用 getCurrentSession的方法可以获取到对应的session
+			WebApplicationContext applicationContext = ContextLoader.getCurrentWebApplicationContext();
+			SessionFactory sessionFactory = (SessionFactory)applicationContext.getBean("sessionFactory");
+			boolean participate = bindHibernateSessionToThread(sessionFactory);
 			// 获取日志标题
 			if (StringUtils.isBlank(log.getTitle())){
 				String permission = "";
@@ -105,7 +116,29 @@ public class LogUtils {
 			}
 			// 保存日志信息
 			log.preInsert();
-			staticLogDao.save(log);
+			try {
+				staticLogDao.save(log);
+			} finally {
+				closeHibernateSessionFromThread(participate, sessionFactory);
+			}
+		}
+		public static boolean bindHibernateSessionToThread(SessionFactory sessionFactory) {
+			if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
+				return true;
+			} else {
+				Session session = sessionFactory.openSession();
+				session.setFlushMode(FlushMode.MANUAL);
+				SessionHolder sessionHolder = new SessionHolder(session);
+				TransactionSynchronizationManager.bindResource(sessionFactory, sessionHolder);
+			}
+			return false;
+		}
+		public static void closeHibernateSessionFromThread(boolean participate, Object sessionFactory) {
+
+			if (!participate) {
+				SessionHolder sessionHolder = (SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);
+				SessionFactoryUtils.closeSession(sessionHolder.getSession());
+			}
 		}
 	}
 

@@ -14,7 +14,7 @@ public interface UserDao {
      * @Date 2017/2/6 15:27
      * @Desc 通过ID查找用户信息
      */
-    public SysUser findById(Integer id);
+    public SysUser findById(String id);
 
     /**
      * @Author 阁楼麻雀

@@ -308,7 +308,7 @@ public class SysUser implements Serializable{
     private List<SysRole> roles;
     private SysOffice office;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="sys_user_role",
             joinColumns={@JoinColumn(name="user_id")},
             inverseJoinColumns={@JoinColumn(name="role_id")})
@@ -320,7 +320,7 @@ public class SysUser implements Serializable{
         this.roles = roles;
     }
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.EAGER)
     @JoinColumn(name = "office_id",insertable = false,updatable = false)
     public SysOffice getOffice() {
         return office;

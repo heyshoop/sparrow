@@ -66,7 +66,7 @@ public class UserUtils {
 	 * @param id
 	 * @return 取不到返回null
 	 */
-	public static SysUser get(Integer id){
+	public static SysUser get(String id){
 		SysUser user = (SysUser)CacheUtils.get(USER_CACHE, USER_CACHE_ID_ + id);
 		if (user ==  null){
 			user = staticUserDao.findById(id);
@@ -129,7 +129,7 @@ public class UserUtils {
 	public static SysUser getUser(){
 		Principal principal = getPrincipal();
 		if (principal!=null){
-			SysUser user = get(new Integer(principal.getId()));
+			SysUser user = get(principal.getId());
 			if (user != null){
 				return user;
 			}
