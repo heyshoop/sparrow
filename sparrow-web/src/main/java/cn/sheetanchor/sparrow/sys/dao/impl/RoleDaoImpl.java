@@ -15,7 +15,7 @@ import java.util.List;
  * @Desc
  */
 @Repository
-public class RoleDaoImpl extends HibernateBaseDao<SysRole,Integer> implements RoleDao{
+public class RoleDaoImpl extends HibernateBaseDao<SysRole,String> implements RoleDao{
     @Override
     protected Class<SysRole> getEntityClass() {
         return SysRole.class;

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @Desc
  */
 @Repository
-public class UserDaoImpl extends HibernateBaseDao<SysUser,Integer> implements UserDao{
+public class UserDaoImpl extends HibernateBaseDao<SysUser,String> implements UserDao{
     @Override
     protected Class<SysUser> getEntityClass() {
         return SysUser.class;
@@ -23,7 +23,7 @@ public class UserDaoImpl extends HibernateBaseDao<SysUser,Integer> implements Us
      * @Date 2017/2/6 15:27
      * @Desc 通过ID查找用户信息
      */
-    public SysUser findById(Integer id) {
+    public SysUser findById(String id) {
         SysUser entity = get(id);
         return entity;
     }

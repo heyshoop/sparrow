@@ -15,7 +15,7 @@ import java.util.List;
  * @Desc
  */
 @Repository
-public class AreaDaoImpl extends HibernateBaseDao<SysArea,Integer> implements AreaDao{
+public class AreaDaoImpl extends HibernateBaseDao<SysArea,String> implements AreaDao{
     @Override
     protected Class<SysArea> getEntityClass() {
         return SysArea.class;

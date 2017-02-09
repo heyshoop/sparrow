@@ -15,7 +15,7 @@ import java.util.List;
  * @Desc
  */
 @Repository
-public class DictDaoImpl extends HibernateBaseDao<SysDict,Integer> implements DictDao {
+public class DictDaoImpl extends HibernateBaseDao<SysDict,String> implements DictDao {
 
     public List<String> findTypeList(SysDict dict) {
         return null;

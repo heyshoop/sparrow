@@ -15,7 +15,7 @@ import java.util.List;
  * @Desc
  */
 @Repository
-public class OfficeDaoImpl extends HibernateBaseDao<SysOffice,Integer> implements OfficeDao{
+public class OfficeDaoImpl extends HibernateBaseDao<SysOffice,String> implements OfficeDao{
     @Override
     protected Class<SysOffice> getEntityClass() {
         return SysOffice.class;

@@ -15,7 +15,7 @@ import java.util.List;
  * @Desc
  */
 @Repository
-public class MenuDaoImpl extends HibernateBaseDao<SysMenu,Integer> implements MenuDao{
+public class MenuDaoImpl extends HibernateBaseDao<SysMenu,String> implements MenuDao{
 
     public List<SysMenu> findAllList() {
         String hql = "from SysMenu bean where bean.delFlag = '0' order by bean.sort";

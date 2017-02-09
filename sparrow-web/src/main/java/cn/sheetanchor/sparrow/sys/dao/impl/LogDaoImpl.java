@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @Desc
  */
 @Repository
-public class LogDaoImpl extends HibernateBaseDao<SysLog,Integer> implements LogDao{
+public class LogDaoImpl extends HibernateBaseDao<SysLog,String> implements LogDao{
 
     @Override
     public SysLog save(SysLog bean) {
