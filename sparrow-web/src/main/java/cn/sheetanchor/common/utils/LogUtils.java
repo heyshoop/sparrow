@@ -122,6 +122,7 @@ public class LogUtils {
 				closeHibernateSessionFromThread(participate, sessionFactory);
 			}
 		}
+		//绑定session
 		public static boolean bindHibernateSessionToThread(SessionFactory sessionFactory) {
 			if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
 				return true;
@@ -133,6 +134,7 @@ public class LogUtils {
 			}
 			return false;
 		}
+		//关闭session
 		public static void closeHibernateSessionFromThread(boolean participate, Object sessionFactory) {
 
 			if (!participate) {
