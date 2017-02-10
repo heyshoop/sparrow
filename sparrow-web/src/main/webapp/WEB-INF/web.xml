@@ -60,22 +60,6 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <!-- SiteMesh -->
-<!--  <filter>
-    <filter-name>sitemeshFilter</filter-name>
-    <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>sitemeshFilter</filter-name>
-    <url-pattern>/admin/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>sitemeshFilter</filter-name>
-    <url-pattern>/front/*</url-pattern>
-  </filter-mapping>-->
-
-
-
   <!-- MVC Servlet -->
   <servlet>
     <servlet-name>springServlet</servlet-name>

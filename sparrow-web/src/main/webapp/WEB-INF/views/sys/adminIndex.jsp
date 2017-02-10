@@ -8,7 +8,7 @@
 --%>
 <html>
 <head>
-    <title>Title</title>
+    <title>管理中心</title>
 </head>
 <body>
 登录成功：管理中心
