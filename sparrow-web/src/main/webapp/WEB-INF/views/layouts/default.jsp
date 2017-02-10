@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html style="overflow-x:auto;overflow-y:auto;">
 <head>
-	<title><sitemesh:title/> - 麻雀虽小，五脏俱全</title>
-	<%@include file="/WEB-INF/views/include/head.jsp" %>		
+	<title><sitemesh:title/>aaaaaaaa</title>
 	<sitemesh:head/>
 </head>
 <body>

@@ -61,7 +61,7 @@
   </filter-mapping>
 
   <!-- SiteMesh -->
-  <filter>
+<!--  <filter>
     <filter-name>sitemeshFilter</filter-name>
     <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
   </filter>
@@ -72,7 +72,7 @@
   <filter-mapping>
     <filter-name>sitemeshFilter</filter-name>
     <url-pattern>/front/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping>-->
 
 
 

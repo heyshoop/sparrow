@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gbk"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%--
   Created by IntelliJ IDEA.
   User: Netuser
@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-µÇÂ¼³É¹¦£º¹ÜÀíÖÐÐÄ
+ç™»å½•æˆåŠŸï¼šç®¡ç†ä¸­å¿ƒ
 </body>
 </html>

@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" import="java.util.*" pageEncoding="gbk"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%--
   Created by IntelliJ IDEA.
   User: Netuser
@@ -10,21 +10,20 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>��¼ - ��ȸ��С�������ȫ</title>
+    <title>登录 - 麻雀虽小，五脏俱全</title>
 </head>
 <body>
 <form action="/admin/login" method="post">
-    <label for="username">��¼��</label>
+    <label for="username">登录名</label>
     <input type="text" id="username" name="username" value="${username}">
-    <label for="password">����</label>
+    <label for="password">密码</label>
     <input type="password" id="password" name="password">
     <c:if test="${isValidateCodeLogin}"><div class="validateCode">
-        <label for="validateCode">��֤��</label>
+        <label for="validateCode">验证码</label>
         <sys:validateCode name="validateCode" inputCssStyle="margin-bottom:0;"/>
     </div></c:if>
-    <input type="submit" value="�� ¼"/>&nbsp;&nbsp;
-    <label for="rememberMe" title="�´β���Ҫ�ٵ�¼"><input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''}/> ��ס�ң������������ã�</label>
+    <input type="submit" value="登 录"/>&nbsp;&nbsp;
+    <label for="rememberMe" title="下次不需要再登录"><input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''}/> 记住我（公共场所慎用）</label>
 </form>
 </body>
 </html>
