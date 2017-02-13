@@ -28,7 +28,7 @@ import java.util.Map;
  */
 
 @Controller
-public class LoginController extends BaseController {
+public class SysLoginController extends BaseController {
 	
 	@Autowired
 	private SessionDAO sessionDAO;
@@ -53,7 +53,7 @@ public class LoginController extends BaseController {
 		if(principal != null && !principal.isMobileLogin()){
 			return "redirect:" + adminPath;
 		}
-		return "sys/adminLogin";
+		return "sys/sysAdminLogin";
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class LoginController extends BaseController {
 	        return renderString(response, model);
 		}
 
-		return "sys/adminLogin";
+		return "sys/sysAdminLogin";
 	}
 
 	/**
@@ -137,11 +137,11 @@ public class LoginController extends BaseController {
 				return renderString(response, principal);
 			}
 			if (request.getParameter("index") != null){
-				return "sys/adminIndex";
+				return "sys/sysAdminIndex";
 			}
 			return "redirect:" + adminPath + "/login";
 		}
-		return "sys/adminIndex";
+		return "sys/sysAdminIndex";
 	}
 
 	/**

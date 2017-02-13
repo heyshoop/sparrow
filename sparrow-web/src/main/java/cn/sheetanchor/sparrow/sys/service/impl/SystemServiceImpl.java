@@ -41,7 +41,7 @@ public class SystemServiceImpl implements SystemService,InitializingBean {
     /**
      * 根据登录名获取用户
      * @param loginName
-     * @return
+     * @return SysUser
      */
     public SysUser getUserByLoginName(String loginName) {
         return UserUtils.getByLoginName(loginName);

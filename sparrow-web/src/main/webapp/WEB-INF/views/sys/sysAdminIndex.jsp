@@ -15,5 +15,6 @@
 登录成功：管理中心<br/>
 当前用户：${fns:getUser().name}<br/>
 邮箱地址：${fns:getUser().email}<br/>
+<li><a href="${ctx}/logout" title="退出登录">退出登录</a></li>
 </body>
 </html>
