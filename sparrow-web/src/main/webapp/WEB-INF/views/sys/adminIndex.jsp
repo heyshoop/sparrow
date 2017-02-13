@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <%--
   Created by IntelliJ IDEA.
   User: Netuser
@@ -11,6 +12,8 @@
     <title>管理中心</title>
 </head>
 <body>
-登录成功：管理中心
+登录成功：管理中心<br/>
+当前用户：${fns:getUser().name}<br/>
+邮箱地址：${fns:getUser().email}<br/>
 </body>
 </html>
