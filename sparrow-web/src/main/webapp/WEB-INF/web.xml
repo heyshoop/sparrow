@@ -182,6 +182,10 @@
     <servlet-name>ValidateCodeServlet</servlet-name>
     <url-pattern>/servlet/validateCodeServlet</url-pattern>
   </servlet-mapping>
+  <!--welcome-->
+  <welcome-file-list>
+    <welcome-file>/WEB-INF/views/index.jsp</welcome-file>
+  </welcome-file-list>
   <!-- Error page -->
   <error-page>
     <error-code>500</error-code>
