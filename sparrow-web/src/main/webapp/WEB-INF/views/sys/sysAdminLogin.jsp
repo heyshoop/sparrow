@@ -10,7 +10,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>登录 - 麻雀虽小，五脏俱全</title>
+    <title>登录 ${fns:getConfig("title")}</title>
 
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
     <link href="${ctxStatic}/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
