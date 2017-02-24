@@ -122,20 +122,20 @@
                 <!-- end sidebar user -->
                 <!-- begin sidebar nav -->
                 <ul class="nav">
-                    <li class="nav-header">控制中心</li>
+                    <li class="nav-header">控制面板</li>
                     <li class="has-sub active">
                         <a href="javascript:;">
                             <b class="caret pull-right"></b>
                             <i class="fa fa-laptop"></i>
-                            <span>系统管理</span>
+                            <span>个人中心</span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="active"><a href="">系统设置</a></li>
-                            <li><a href="">系统设置</a></li>
+                            <li><a href="javascript:void(0)" target="">个人资料</a></li>
+                            <li><a href="javascript:void(0)" target="">修改密码</a></li>
                         </ul>
                     </li>
                     <!-- begin sidebar minify button -->
-                    <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+                    <li><a class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
                     <!-- end sidebar minify button -->
                 </ul>
                 <!-- end sidebar nav -->
@@ -146,6 +146,11 @@
         <!-- end #sidebar -->
 
 
+        <!-- begin #content -->
+        <div id="content" class="content">
+            <iframe src="" id="mainFrame" name="mainFrame" style="width: 100%;height: 100%;z-index: 100;position: absolute;" frameborder="0"></iframe>
+        </div>
+        <!-- end #content -->
     </div>
     <!-- end page container -->
 
