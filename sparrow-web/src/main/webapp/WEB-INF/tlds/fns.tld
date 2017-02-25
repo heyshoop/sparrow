@@ -42,4 +42,13 @@
         <example>${fns:getUser()}</example>
     </function>
 
+    <!-- DictUtils -->
+    <function>
+        <description>获取字典标签</description>
+        <name>getDictLabel</name>
+        <function-class>cn.sheetanchor.common.utils.DictUtils</function-class>
+        <function-signature>java.lang.String getDictLabel(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+        <example>${fns:getDictLabel(value, type, defaultValue)}</example>
+    </function>
+
 </taglib>

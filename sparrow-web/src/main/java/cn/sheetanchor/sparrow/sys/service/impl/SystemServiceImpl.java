@@ -47,11 +47,24 @@ public class SystemServiceImpl implements SystemService,InitializingBean {
         return UserUtils.getByLoginName(loginName);
     }
 
-    @Override
     public void updateUserLoginInfo(SysUser user) {
         // 更新本次登录信息
         user.setLoginIp(StringUtils.getRemoteAddr(Servlets.getRequest()));
         user.setLoginDate(new Date());
         userDao.update(user);
+    }
+
+    public SysUser getUser(String id) {
+        return UserUtils.get(id);
+    }
+
+    @Transactional(readOnly = false)
+    public void updateUserInfo(SysUser currentUser) {
+        SysUser user = UserUtils.getUser();
+        if (StringUtils.isNotBlank(user.getId())){
+            currentUser.setUpdateBy(user.getId());
+        }
+        currentUser.setUpdateDate(new Date());
+        userDao.update(currentUser);
     }
 }

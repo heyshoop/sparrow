@@ -4,7 +4,7 @@ import cn.sheetanchor.common.config.Global;
 import cn.sheetanchor.common.security.shiro.session.SessionDAO;
 import cn.sheetanchor.common.servlet.ValidateCodeServlet;
 import cn.sheetanchor.common.utils.*;
-import cn.sheetanchor.sparrow.sys.controller.SysLoginController;
+import cn.sheetanchor.sparrow.sys.controller.sysLoginController;
 import cn.sheetanchor.sparrow.sys.model.SysMenu;
 import cn.sheetanchor.sparrow.sys.model.SysRole;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
@@ -62,7 +62,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 			logger.debug("login submit, active session size: {}, username: {}", activeSessionSize, token.getUsername());
 		}
 		// 校验登录验证码
-		if (SysLoginController.isValidateCodeLogin(token.getUsername(), false, false)){
+		if (sysLoginController.isValidateCodeLogin(token.getUsername(), false, false)){
 			Session session = UserUtils.getSession();
 			String code = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
 			if (token.getCaptcha() == null || !token.getCaptcha().toUpperCase().equals(code)){

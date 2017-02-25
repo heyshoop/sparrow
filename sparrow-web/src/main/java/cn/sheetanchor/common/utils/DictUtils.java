@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +19,23 @@ import java.util.Map;
  */
 
 public class DictUtils {
-	
+
+	@Resource
+	private DictDao dictDao;
+
+	private static DictDao staticDictDao;
+
+	@PostConstruct
+	public void init(){
+		//静态方法中注入bean
+		DictUtils.staticDictDao = dictDao;
+
+	}
+
 
 	public static final String CACHE_DICT_MAP = "dictMap";
-	
-	public String getDictLabel(String value, String type, String defaultValue){
+
+	public static String getDictLabel(String value, String type, String defaultValue){
 		if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(value)){
 			for (SysDict dict : getDictList(type)){
 				if (type.equals(dict.getType()) && value.equals(dict.getValue())){
@@ -32,8 +45,8 @@ public class DictUtils {
 		}
 		return defaultValue;
 	}
-	
-	public String getDictLabels(String values, String type, String defaultValue){
+
+	public static String getDictLabels(String values, String type, String defaultValue){
 		if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(values)){
 			List<String> valueList = Lists.newArrayList();
 			for (String value : StringUtils.split(values, ",")){
@@ -44,7 +57,7 @@ public class DictUtils {
 		return defaultValue;
 	}
 
-	public String getDictValue(String label, String type, String defaultLabel){
+	public static String getDictValue(String label, String type, String defaultLabel){
 		if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(label)){
 			for (SysDict dict : getDictList(type)){
 				if (type.equals(dict.getType()) && label.equals(dict.getLabel())){
@@ -54,12 +67,13 @@ public class DictUtils {
 		}
 		return defaultLabel;
 	}
-	
-	public List<SysDict> getDictList(String type){
+
+	public static List<SysDict> getDictList(String type){
+		@SuppressWarnings("unchecked")
 		Map<String, List<SysDict>> dictMap = (Map<String, List<SysDict>>)CacheUtils.get(CACHE_DICT_MAP);
 		if (dictMap==null){
 			dictMap = Maps.newHashMap();
-			for (SysDict dict : dictDao.findAllList()){
+			for (SysDict dict : staticDictDao.findAllList()){
 				List<SysDict> dictList = dictMap.get(dict.getType());
 				if (dictList != null){
 					dictList.add(dict);
@@ -75,16 +89,15 @@ public class DictUtils {
 		}
 		return dictList;
 	}
-	
+
 	/**
 	 * 返回字典列表（JSON）
 	 * @param type
 	 * @return
 	 */
-	public String getDictListJson(String type){
+	public static String getDictListJson(String type){
 		return JsonMapper.toJsonString(getDictList(type));
 	}
-	@Resource
-	private DictDao dictDao;
+
 	
 }

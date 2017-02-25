@@ -22,4 +22,16 @@ public interface SystemService {
      * @Desc 更新登录IP和时间
      */
     void updateUserLoginInfo(SysUser user);
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/25 11:13
+     * @Desc 获取用户信息
+     */
+    SysUser getUser(String id);
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/25 11:31
+     * @Desc 更新用户信息
+     */
+    void updateUserInfo(SysUser currentUser);
 }

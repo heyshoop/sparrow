@@ -10,25 +10,7 @@
 <html>
 <head>
     <title>管理中心 ${fns:getConfig("title")}</title>
-    <!-- ================== BEGIN BASE CSS STYLE ================== -->
-    <link href="${ctxStatic}/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/css/animate.min.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/css/style.min.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/css/style-responsive.min.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-    <!-- ================== END BASE CSS STYLE ================== -->
 
-    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-    <link href="${ctxStatic}/assets/plugins/jquery-jvectormap/jquery-jvectormap.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-    <link href="${ctxStatic}/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
-    <!-- ================== END PAGE LEVEL STYLE ================== -->
-
-    <!-- ================== BEGIN BASE JS ================== -->
-    <script src="${ctxStatic}/assets/plugins/pace/pace.min.js"></script>
-    <!-- ================== END BASE JS ================== -->
 </head>
 <body>
     <!-- begin #page-loader -->
@@ -130,7 +112,7 @@
                             <span>个人中心</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="javascript:void(0)" target="">个人资料</a></li>
+                            <li><a href="${ctx}/sys/user/info" target="mainFrame">个人资料</a></li>
                             <li><a href="javascript:void(0)" target="">修改密码</a></li>
                         </ul>
                     </li>
@@ -154,19 +136,7 @@
     </div>
     <!-- end page container -->
 
-    <!-- ================== BEGIN BASE JS ================== -->
-    <script src="${ctxStatic}/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-    <script src="${ctxStatic}/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-    <script src="${ctxStatic}/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-    <script src="${ctxStatic}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="${ctxStatic}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="${ctxStatic}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-    <!-- ================== END BASE JS ================== -->
-
-    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-    <script src="${ctxStatic}/assets/js/apps.min.js"></script>
-    <!-- ================== END PAGE LEVEL JS ================== -->
 
     <script>
         $(document).ready(function() {

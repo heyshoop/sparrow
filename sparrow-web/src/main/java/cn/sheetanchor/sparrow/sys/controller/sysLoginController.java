@@ -28,7 +28,7 @@ import java.util.Map;
  */
 
 @Controller
-public class SysLoginController extends BaseController {
+public class sysLoginController extends BaseController {
 	
 	@Autowired
 	private SessionDAO sessionDAO;

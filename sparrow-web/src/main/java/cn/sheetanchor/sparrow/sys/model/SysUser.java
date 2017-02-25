@@ -1,5 +1,7 @@
 package cn.sheetanchor.sparrow.sys.model;
 
+import cn.sheetanchor.common.utils.Collections3;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -360,5 +362,13 @@ public class SysUser implements Serializable{
             menus.addAll(menu);
         }
         return menus;
+    }
+
+    /**
+     * 用户拥有的角色名称字符串, 多个角色名称用','分隔.
+     */
+    @Transient
+    public String getRoleNames() {
+        return Collections3.extractToString(roles, "name", ",");
     }
 }
