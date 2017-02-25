@@ -34,4 +34,16 @@ public interface SystemService {
      * @Desc 更新用户信息
      */
     void updateUserInfo(SysUser currentUser);
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/25 17:22
+     * @Desc 验证密码
+     */
+    boolean validatePassword(String oldPassword, String password);
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/25 17:26
+     * @Desc 修改密码
+     */
+    void updatePasswordById(String id, String loginName, String newPassword);
 }

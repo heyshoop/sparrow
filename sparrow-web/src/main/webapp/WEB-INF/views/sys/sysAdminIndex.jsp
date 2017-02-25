@@ -113,7 +113,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li><a href="${ctx}/sys/user/info" target="mainFrame">个人资料</a></li>
-                            <li><a href="javascript:void(0)" target="">修改密码</a></li>
+                            <li><a href="${ctx}/sys/user/modifyPwd" target="mainFrame">修改密码</a></li>
                         </ul>
                     </li>
                     <!-- begin sidebar minify button -->
@@ -127,17 +127,13 @@
         <div class="sidebar-bg"></div>
         <!-- end #sidebar -->
 
-
         <!-- begin #content -->
         <div id="content" class="content">
-            <iframe src="" id="mainFrame" name="mainFrame" style="width: 100%;height: 100%;z-index: 100;position: absolute;" frameborder="0"></iframe>
+            <iframe src="" id="mainFrame" name="mainFrame" style="width: 85%;height: 90%;z-index: 100;position: absolute;" frameborder="0"></iframe>
         </div>
         <!-- end #content -->
     </div>
     <!-- end page container -->
-
-
-
     <script>
         $(document).ready(function() {
             App.init();

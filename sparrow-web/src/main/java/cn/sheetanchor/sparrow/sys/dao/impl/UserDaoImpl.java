@@ -46,4 +46,5 @@ public class UserDaoImpl extends HibernateBaseDao<SysUser,String> implements Use
         getSession().update(bean);
         return bean;
     }
+
 }

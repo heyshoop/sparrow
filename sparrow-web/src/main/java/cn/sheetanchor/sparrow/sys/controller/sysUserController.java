@@ -61,4 +61,25 @@ public class sysUserController extends BaseController{
         return "include/sys/userInfo";
     }
 
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/25 17:18
+     * @Desc 修改密码
+     */
+    @RequiresPermissions("user")
+    @RequestMapping(value = "modifyPwd")
+    public String modifyPwd(String oldPassword, String newPassword, Model model) {
+        SysUser user = UserUtils.getUser();
+        if (StringUtils.isNotBlank(oldPassword) && StringUtils.isNotBlank(newPassword)){
+            if (systemService.validatePassword(oldPassword, user.getPassword())){
+                systemService.updatePasswordById(user.getId(), user.getLoginName(), newPassword);
+                model.addAttribute("message", "修改密码成功");
+            }else{
+                model.addAttribute("message", "修改密码失败，旧密码错误");
+            }
+        }
+        model.addAttribute("user", user);
+        return "include/sys/userModifyPwd";
+
+    }
 }

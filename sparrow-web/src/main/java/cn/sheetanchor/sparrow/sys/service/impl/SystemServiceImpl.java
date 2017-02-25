@@ -1,8 +1,6 @@
 package cn.sheetanchor.sparrow.sys.service.impl;
 
-import cn.sheetanchor.common.utils.Servlets;
-import cn.sheetanchor.common.utils.StringUtils;
-import cn.sheetanchor.common.utils.UserUtils;
+import cn.sheetanchor.common.utils.*;
 import cn.sheetanchor.sparrow.sys.dao.*;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
 import cn.sheetanchor.sparrow.sys.service.SystemService;
@@ -12,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+
+import static cn.sheetanchor.common.security.SystemAuthorizingRealm.HASH_INTERATIONS;
+import static cn.sheetanchor.common.security.SystemAuthorizingRealm.SALT_SIZE;
 
 /**
  * @Author 阁楼麻雀
@@ -66,5 +67,32 @@ public class SystemServiceImpl implements SystemService,InitializingBean {
         }
         currentUser.setUpdateDate(new Date());
         userDao.update(currentUser);
+    }
+
+    public boolean validatePassword(String oldPassword, String password) {
+        String plain = Encodes.unescapeHtml(oldPassword);
+        byte[] salt = Encodes.decodeHex(password.substring(0,16));
+        byte[] hashPassword = Digests.sha1(plain.getBytes(), salt, HASH_INTERATIONS);
+        return password.equals(Encodes.encodeHex(salt)+Encodes.encodeHex(hashPassword));
+    }
+
+    @Transactional(readOnly = false)
+    public void updatePasswordById(String id, String loginName, String newPassword) {
+        SysUser user = userDao.findById(id);
+        user.setPassword(entryptPassword(newPassword));
+        userDao.update(user);
+        // 清除用户缓存
+        user.setLoginName(loginName);
+        UserUtils.clearCache(user);
+    }
+
+    /**
+     * 生成安全的密码，生成随机的16位salt并经过1024次 sha-1 hash
+     */
+    public static String entryptPassword(String plainPassword) {
+        String plain = Encodes.unescapeHtml(plainPassword);
+        byte[] salt = Digests.generateSalt(SALT_SIZE);
+        byte[] hashPassword = Digests.sha1(plain.getBytes(), salt, HASH_INTERATIONS);
+        return Encodes.encodeHex(salt)+Encodes.encodeHex(hashPassword);
     }
 }
