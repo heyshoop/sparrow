@@ -21,6 +21,7 @@
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 <link href="${ctxStatic}/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="${ctxStatic}/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/plugins/jquery-jbox/2.3/Skins/Bootstrap/jbox.min.css" rel="stylesheet" />
 <!-- ================== END PAGE LEVEL STYLE ================== -->
 
 <!-- ================== BEGIN BASE JS ================== -->
@@ -32,6 +33,8 @@
 <script src="${ctxStatic}/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="${ctxStatic}/assets/plugins/jquery-jbox/2.3/jquery.jBox-2.3.min.js" ></script>
+
 
 <script src="${ctxStatic}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>

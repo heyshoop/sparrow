@@ -72,8 +72,8 @@
                         </a>
                         <ul class="dropdown-menu animated fadeInLeft">
                             <li class="arrow"></li>
-                            <li><a href="javascript:;">编辑资料</a></li>
-                            <li><a href="javascript:;">设置</a></li>
+                            <li><a href="${ctx}/sys/user/info" target="mainFrame">编辑资料</a></li>
+                            <li><a href="javascript:;" target="mainFrame">设置</a></li>
                             <li class="divider"></li>
                             <li><a href="${ctx}/logout">退出登录</a></li>
                         </ul>
@@ -113,7 +113,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li><a href="${ctx}/sys/user/info" target="mainFrame">个人资料</a></li>
-                            <li><a href="${ctx}/sys/user/modifyPwd" target="mainFrame">修改密码</a></li>
+                            <%--<li><a href="${ctx}/sys/user/modifyPwd" target="mainFrame">修改密码</a></li>--%>
                         </ul>
                     </li>
                     <!-- begin sidebar minify button -->
