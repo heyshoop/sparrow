@@ -1,6 +1,7 @@
 package cn.sheetanchor.sparrow.sys.controller;
 
 import cn.sheetanchor.common.config.Global;
+import cn.sheetanchor.common.page.Page;
 import cn.sheetanchor.common.utils.StringUtils;
 import cn.sheetanchor.common.utils.UserUtils;
 import cn.sheetanchor.common.web.BaseController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -81,5 +83,18 @@ public class sysUserController extends BaseController{
         model.addAttribute("user", user);
         return "include/sys/userModifyPwd";
 
+    }
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/2/27 15:26
+     * @Desc 组织机构树
+     */
+    @RequiresPermissions("sys:user:view")
+    @RequestMapping(value = {"list"})
+    public String list(SysUser user, Model model, HttpServletRequest request, HttpServletResponse response) {
+        Page<SysUser> page = systemService.getPageForUser(new Page<SysUser>(request, response),user);
+        model.addAttribute("page", page);
+        return "include/sys/userList";
     }
 }

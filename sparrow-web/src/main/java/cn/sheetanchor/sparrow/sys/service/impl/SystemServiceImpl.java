@@ -1,5 +1,6 @@
 package cn.sheetanchor.sparrow.sys.service.impl;
 
+import cn.sheetanchor.common.page.Page;
 import cn.sheetanchor.common.utils.*;
 import cn.sheetanchor.sparrow.sys.dao.*;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
@@ -84,6 +85,10 @@ public class SystemServiceImpl implements SystemService,InitializingBean {
         // 清除用户缓存
         user.setLoginName(loginName);
         UserUtils.clearCache(user);
+    }
+
+    public Page<SysUser> getPageForUser(Page<SysUser> sysUserPage, SysUser user) {
+        return null;
     }
 
     /**

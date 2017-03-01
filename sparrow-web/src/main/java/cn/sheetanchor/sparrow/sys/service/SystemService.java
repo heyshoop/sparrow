@@ -1,5 +1,6 @@
 package cn.sheetanchor.sparrow.sys.service;
 
+import cn.sheetanchor.common.page.Page;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
 
 /**
@@ -46,4 +47,10 @@ public interface SystemService {
      * @Desc 修改密码
      */
     void updatePasswordById(String id, String loginName, String newPassword);
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/1 17:51
+     * @Desc 分页查询
+     */
+    Page<SysUser> getPageForUser(Page<SysUser> sysUserPage, SysUser user);
 }
