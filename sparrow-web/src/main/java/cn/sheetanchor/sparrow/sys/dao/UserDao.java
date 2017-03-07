@@ -2,6 +2,8 @@ package cn.sheetanchor.sparrow.sys.dao;
 
 import cn.sheetanchor.sparrow.sys.model.SysUser;
 
+import java.util.List;
+
 /**
  * @Author 阁楼麻雀
  * @Email netuser.orz@icloud.com
@@ -29,4 +31,19 @@ public interface UserDao {
      * @Desc 更新用户信息
      */
     SysUser update(SysUser user);
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 14:48
+     * @Desc 删除用户
+     */
+    SysUser delete(SysUser user);
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 16:36
+     * @Desc 查询人员列表
+     * @param user
+     */
+    List<SysUser> findList(SysUser user);
 }

@@ -3,6 +3,7 @@ package cn.sheetanchor.sparrow.sys.service.impl;
 import cn.sheetanchor.common.page.Page;
 import cn.sheetanchor.common.utils.*;
 import cn.sheetanchor.sparrow.sys.dao.*;
+import cn.sheetanchor.sparrow.sys.model.SysRole;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
 import cn.sheetanchor.sparrow.sys.service.SystemService;
 import org.springframework.beans.factory.InitializingBean;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 import static cn.sheetanchor.common.security.SystemAuthorizingRealm.HASH_INTERATIONS;
 import static cn.sheetanchor.common.security.SystemAuthorizingRealm.SALT_SIZE;
@@ -88,7 +90,17 @@ public class SystemServiceImpl implements SystemService,InitializingBean {
     }
 
     public Page<SysUser> getPageForUser(Page<SysUser> sysUserPage, SysUser user) {
-        return null;
+        sysUserPage.setList(userDao.findList(user));
+        return sysUserPage;
+    }
+
+    public List<SysRole> findAllRole() {
+        return UserUtils.getRoleList();
+    }
+
+    public void deleteUser(SysUser user) {
+        userDao.delete(user);
+        UserUtils.clearCache(user);
     }
 
     /**

@@ -109,11 +109,25 @@
                         <a href="javascript:;">
                             <b class="caret pull-right"></b>
                             <i class="fa fa-laptop"></i>
-                            <span>个人中心</span>
+                            <span>用户信息</span>
                         </a>
                         <ul class="sub-menu">
                             <li><a href="${ctx}/sys/user/info" target="mainFrame">个人资料</a></li>
+                            <li><a href="${ctx}/sys/user/list" target="mainFrame">人员列表</a></li>
                             <%--<li><a href="${ctx}/sys/user/modifyPwd" target="mainFrame">修改密码</a></li>--%>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="javascript:;">
+                            <span class="badge pull-right">10</span>
+                            <i class="fa fa-inbox"></i>
+                            <span>Email</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="email_inbox.html">Inbox v1</a></li>
+                            <li><a href="email_inbox_v2.html">Inbox v2</a></li>
+                            <li><a href="email_compose.html">Compose</a></li>
+                            <li><a href="email_detail.html">Detail</a></li>
                         </ul>
                     </li>
                     <!-- begin sidebar minify button -->

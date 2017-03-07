@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -91,10 +92,51 @@ public class sysUserController extends BaseController{
      * @Desc 组织机构树
      */
     @RequiresPermissions("sys:user:view")
-    @RequestMapping(value = {"list"})
+    @RequestMapping(value = {"list", ""})
     public String list(SysUser user, Model model, HttpServletRequest request, HttpServletResponse response) {
         Page<SysUser> page = systemService.getPageForUser(new Page<SysUser>(request, response),user);
         model.addAttribute("page", page);
+        model.addAttribute("user", user);
         return "include/sys/userList";
+    }
+
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 13:58
+     * @Desc 用户表单
+     */
+    @RequiresPermissions("sys:user:view")
+    @RequestMapping(value = "form")
+    public String form(SysUser user, Model model) {
+        if (user.getCompany()==null || user.getCompany().getId()==null){
+            user.setCompany(UserUtils.getUser().getCompany());
+        }
+        if (user.getOffice()==null || user.getOffice().getId()==null){
+            user.setOffice(UserUtils.getUser().getOffice());
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("allRoles", systemService.findAllRole());
+        return "include/sys/userForm";
+    }
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 14:05
+     * @Desc 删除用户
+     */
+    @RequiresPermissions("sys:user:edit")
+    @RequestMapping(value = "delete")
+    public String delete(SysUser user, RedirectAttributes redirectAttributes) {
+
+        if (UserUtils.getUser().getId().equals(user.getId())){
+            addMessage(redirectAttributes, "删除用户失败, 不允许删除当前用户");
+        }else if (user.isAdmin()){
+            addMessage(redirectAttributes, "删除用户失败, 不允许删除超级管理员用户");
+        }else{
+            systemService.deleteUser(user);
+            addMessage(redirectAttributes, "删除用户成功");
+        }
+        return "redirect:" + adminPath + "/sys/user/list?repage";
     }
 }

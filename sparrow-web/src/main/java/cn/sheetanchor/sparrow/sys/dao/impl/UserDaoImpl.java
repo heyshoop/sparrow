@@ -3,7 +3,10 @@ package cn.sheetanchor.sparrow.sys.dao.impl;
 import cn.sheetanchor.common.hibernate.HibernateBaseDao;
 import cn.sheetanchor.sparrow.sys.dao.UserDao;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Author 阁楼麻雀
@@ -45,6 +48,30 @@ public class UserDaoImpl extends HibernateBaseDao<SysUser,String> implements Use
     public SysUser update(SysUser bean) {
         getSession().update(bean);
         return bean;
+    }
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 14:53
+     * @Desc 删除用户
+     */
+    public SysUser delete(SysUser bean) {
+        if (bean != null){
+            getSession().delete(bean);
+        }
+        return bean;
+    }
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 16:37
+     * @Desc 查询人员列表
+     * @param user
+     */
+    public List<SysUser> findList(SysUser user) {
+        String hql = "from SysUser bean where bean.delFlag = '0' order by bean.id";
+        Query query = getSession().createQuery(hql);
+        return query.list();
     }
 
 }

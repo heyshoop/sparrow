@@ -35,7 +35,7 @@
 <script src="${ctxStatic}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-jbox/2.3/jquery.jBox-2.3.min.js" ></script>
 
-
+<script src="${ctxStatic}/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
 <script src="${ctxStatic}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
 <!-- ================== END BASE JS ================== -->

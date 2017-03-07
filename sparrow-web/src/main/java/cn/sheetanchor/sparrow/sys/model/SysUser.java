@@ -309,6 +309,7 @@ public class SysUser implements Serializable{
 
     private List<SysRole> roles;
     private SysOffice office;
+    private SysOffice company;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="sys_user_role",
@@ -332,6 +333,15 @@ public class SysUser implements Serializable{
         this.office = office;
     }
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id",insertable = false,updatable = false)
+    public SysOffice getCompany() {
+        return company;
+    }
+
+    public void setCompany(SysOffice company) {
+        this.company = company;
+    }
 
     /**
      * @Author 阁楼麻雀

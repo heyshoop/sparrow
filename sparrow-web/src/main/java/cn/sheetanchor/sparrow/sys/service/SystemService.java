@@ -1,7 +1,10 @@
 package cn.sheetanchor.sparrow.sys.service;
 
 import cn.sheetanchor.common.page.Page;
+import cn.sheetanchor.sparrow.sys.model.SysRole;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
+
+import java.util.List;
 
 /**
  * @Author 阁楼麻雀
@@ -53,4 +56,16 @@ public interface SystemService {
      * @Desc 分页查询
      */
     Page<SysUser> getPageForUser(Page<SysUser> sysUserPage, SysUser user);
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 14:37
+     * @Desc 查询角色
+     */
+    List<SysRole> findAllRole();
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/3/7 14:47
+     * @Desc 删除用户
+     */
+    void deleteUser(SysUser user);
 }
