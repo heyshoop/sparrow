@@ -22,6 +22,8 @@
 <link href="${ctxStatic}/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="${ctxStatic}/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 <link href="${ctxStatic}/assets/plugins/jquery-jbox/2.3/Skins/Bootstrap/jbox.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 <!-- ================== END PAGE LEVEL STYLE ================== -->
 
 <!-- ================== BEGIN BASE JS ================== -->
@@ -36,6 +38,9 @@
 <script src="${ctxStatic}/assets/plugins/jquery-jbox/2.3/jquery.jBox-2.3.min.js" ></script>
 
 <script src="${ctxStatic}/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+<script src="${ctxStatic}/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+<script src="${ctxStatic}/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+<script src="${ctxStatic}/assets/js/table-manage.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
 <!-- ================== END BASE JS ================== -->
