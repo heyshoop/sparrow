@@ -1,8 +1,11 @@
 package cn.sheetanchor.sparrow.sys.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import cn.sheetanchor.common.config.Global;
+import cn.sheetanchor.common.persistence.DataEntity;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.Length;
+
 import java.util.List;
 
 /**
@@ -11,207 +14,25 @@ import java.util.List;
  * @Date 2017/2/4
  * @Desc 角色表
  */
-@Entity
-@Table(name = "sys_role")
-public class SysRole implements Serializable{
-    private String id;
-    private String officeId;
-    private String name;
-    private String enname;
-    private String roleType;
-    private String dataScope;
-    private String isSys;
-    private String useable;
-    private String createBy;
-    private Date createDate;
-    private String updateBy;
-    private Date updateDate;
-    private String remarks;
-    private String delFlag;
+public class SysRole extends DataEntity<SysRole> {
 
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
+    private static final long serialVersionUID = 1L;
+    private SysOffice office;	// 归属机构
+    private String name; 	// 角色名称
+    private String enname;	// 英文名称
+    private String roleType;// 权限类型
+    private String dataScope;// 数据范围
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String oldName; 	// 原角色名称
+    private String oldEnname;	// 原英文名称
+    private String sysData; 		//是否是系统数据
+    private String useable; 		//是否是可用
 
-    @Basic
-    @Column(name = "office_id")
-    public String getOfficeId() {
-        return officeId;
-    }
+    private SysUser user;		// 根据用户ID查询角色列表
 
-    public void setOfficeId(String officeId) {
-        this.officeId = officeId;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Basic
-    @Column(name = "enname")
-    public String getEnname() {
-        return enname;
-    }
-
-    public void setEnname(String enname) {
-        this.enname = enname;
-    }
-
-    @Basic
-    @Column(name = "role_type")
-    public String getRoleType() {
-        return roleType;
-    }
-
-    public void setRoleType(String roleType) {
-        this.roleType = roleType;
-    }
-
-    @Basic
-    @Column(name = "data_scope")
-    public String getDataScope() {
-        return dataScope;
-    }
-
-    public void setDataScope(String dataScope) {
-        this.dataScope = dataScope;
-    }
-
-    @Basic
-    @Column(name = "is_sys")
-    public String getIsSys() {
-        return isSys;
-    }
-
-    public void setIsSys(String isSys) {
-        this.isSys = isSys;
-    }
-
-    @Basic
-    @Column(name = "useable")
-    public String getUseable() {
-        return useable;
-    }
-
-    public void setUseable(String useable) {
-        this.useable = useable;
-    }
-
-    @Basic
-    @Column(name = "create_by")
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Basic
-    @Column(name = "create_date")
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    @Basic
-    @Column(name = "update_by")
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Basic
-    @Column(name = "update_date")
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    @Basic
-    @Column(name = "remarks")
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    @Basic
-    @Column(name = "del_flag")
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SysRole sysRole = (SysRole) o;
-
-        if (id != null ? !id.equals(sysRole.id) : sysRole.id != null) return false;
-        if (officeId != null ? !officeId.equals(sysRole.officeId) : sysRole.officeId != null) return false;
-        if (name != null ? !name.equals(sysRole.name) : sysRole.name != null) return false;
-        if (enname != null ? !enname.equals(sysRole.enname) : sysRole.enname != null) return false;
-        if (roleType != null ? !roleType.equals(sysRole.roleType) : sysRole.roleType != null) return false;
-        if (dataScope != null ? !dataScope.equals(sysRole.dataScope) : sysRole.dataScope != null) return false;
-        if (isSys != null ? !isSys.equals(sysRole.isSys) : sysRole.isSys != null) return false;
-        if (useable != null ? !useable.equals(sysRole.useable) : sysRole.useable != null) return false;
-        if (createBy != null ? !createBy.equals(sysRole.createBy) : sysRole.createBy != null) return false;
-        if (createDate != null ? !createDate.equals(sysRole.createDate) : sysRole.createDate != null) return false;
-        if (updateBy != null ? !updateBy.equals(sysRole.updateBy) : sysRole.updateBy != null) return false;
-        if (updateDate != null ? !updateDate.equals(sysRole.updateDate) : sysRole.updateDate != null) return false;
-        if (remarks != null ? !remarks.equals(sysRole.remarks) : sysRole.remarks != null) return false;
-        if (delFlag != null ? !delFlag.equals(sysRole.delFlag) : sysRole.delFlag != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (officeId != null ? officeId.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (enname != null ? enname.hashCode() : 0);
-        result = 31 * result + (roleType != null ? roleType.hashCode() : 0);
-        result = 31 * result + (dataScope != null ? dataScope.hashCode() : 0);
-        result = 31 * result + (isSys != null ? isSys.hashCode() : 0);
-        result = 31 * result + (useable != null ? useable.hashCode() : 0);
-        result = 31 * result + (createBy != null ? createBy.hashCode() : 0);
-        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
-        result = 31 * result + (updateBy != null ? updateBy.hashCode() : 0);
-        result = 31 * result + (updateDate != null ? updateDate.hashCode() : 0);
-        result = 31 * result + (remarks != null ? remarks.hashCode() : 0);
-        result = 31 * result + (delFlag != null ? delFlag.hashCode() : 0);
-        return result;
-    }
+    //	private List<User> userList = Lists.newArrayList(); // 拥有用户列表
+    private List<SysMenu> menuList = Lists.newArrayList(); // 拥有菜单列表
+    private List<SysOffice> officeList = Lists.newArrayList(); // 按明细设置数据范围
 
     // 数据范围（1：所有数据；2：所在公司及以下数据；3：所在公司数据；4：所在部门及以下数据；5：所在部门数据；8：仅本人数据；9：按明细设置）
     public static final String DATA_SCOPE_ALL = "1";
@@ -222,17 +43,190 @@ public class SysRole implements Serializable{
     public static final String DATA_SCOPE_SELF = "8";
     public static final String DATA_SCOPE_CUSTOM = "9";
 
-    private List<SysMenu> menus;
-
-    @ManyToMany
-    @JoinTable(name="sys_role_menu",
-            joinColumns={@JoinColumn(name="role_id")},
-            inverseJoinColumns={@JoinColumn(name="menu_id")})
-    public List<SysMenu> getMenus() {
-        return menus;
+    public SysRole() {
+        super();
+        this.dataScope = DATA_SCOPE_SELF;
+        this.useable= Global.YES;
     }
 
-    public void setMenus(List<SysMenu> menus) {
-        this.menus = menus;
+    public SysRole(String id){
+        super(id);
     }
+
+    public SysRole(SysUser user) {
+        this();
+        this.user = user;
+    }
+
+    public String getUseable() {
+        return useable;
+    }
+
+    public void setUseable(String useable) {
+        this.useable = useable;
+    }
+
+    public String getSysData() {
+        return sysData;
+    }
+
+    public void setSysData(String sysData) {
+        this.sysData = sysData;
+    }
+
+    public SysOffice getOffice() {
+        return office;
+    }
+
+    public void setOffice(SysOffice office) {
+        this.office = office;
+    }
+
+    @Length(min=1, max=100)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Length(min=1, max=100)
+    public String getEnname() {
+        return enname;
+    }
+
+    public void setEnname(String enname) {
+        this.enname = enname;
+    }
+
+    @Length(min=1, max=100)
+    public String getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
+    }
+
+    public String getDataScope() {
+        return dataScope;
+    }
+
+    public void setDataScope(String dataScope) {
+        this.dataScope = dataScope;
+    }
+
+    public String getOldName() {
+        return oldName;
+    }
+
+    public void setOldName(String oldName) {
+        this.oldName = oldName;
+    }
+
+    public String getOldEnname() {
+        return oldEnname;
+    }
+
+    public void setOldEnname(String oldEnname) {
+        this.oldEnname = oldEnname;
+    }
+
+
+    public List<SysMenu> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<SysMenu> menuList) {
+        this.menuList = menuList;
+    }
+
+    public List<String> getMenuIdList() {
+        List<String> menuIdList = Lists.newArrayList();
+        for (SysMenu menu : menuList) {
+            menuIdList.add(menu.getId());
+        }
+        return menuIdList;
+    }
+
+    public void setMenuIdList(List<String> menuIdList) {
+        menuList = Lists.newArrayList();
+        for (String menuId : menuIdList) {
+            SysMenu menu = new SysMenu();
+            menu.setId(menuId);
+            menuList.add(menu);
+        }
+    }
+
+    public String getMenuIds() {
+        return StringUtils.join(getMenuIdList(), ",");
+    }
+
+    public void setMenuIds(String menuIds) {
+        menuList = Lists.newArrayList();
+        if (menuIds != null){
+            String[] ids = StringUtils.split(menuIds, ",");
+            setMenuIdList(Lists.newArrayList(ids));
+        }
+    }
+
+    public List<SysOffice> getOfficeList() {
+        return officeList;
+    }
+
+    public void setOfficeList(List<SysOffice> officeList) {
+        this.officeList = officeList;
+    }
+
+    public List<String> getOfficeIdList() {
+        List<String> officeIdList = Lists.newArrayList();
+        for (SysOffice office : officeList) {
+            officeIdList.add(office.getId());
+        }
+        return officeIdList;
+    }
+
+    public void setOfficeIdList(List<String> officeIdList) {
+        officeList = Lists.newArrayList();
+        for (String officeId : officeIdList) {
+            SysOffice office = new SysOffice();
+            office.setId(officeId);
+            officeList.add(office);
+        }
+    }
+
+    public String getOfficeIds() {
+        return StringUtils.join(getOfficeIdList(), ",");
+    }
+
+    public void setOfficeIds(String officeIds) {
+        officeList = Lists.newArrayList();
+        if (officeIds != null){
+            String[] ids = StringUtils.split(officeIds, ",");
+            setOfficeIdList(Lists.newArrayList(ids));
+        }
+    }
+
+    /**
+     * 获取权限字符串列表
+     */
+    public List<String> getPermissions() {
+        List<String> permissions = Lists.newArrayList();
+        for (SysMenu menu : menuList) {
+            if (menu.getPermission()!=null && !"".equals(menu.getPermission())){
+                permissions.add(menu.getPermission());
+            }
+        }
+        return permissions;
+    }
+
+    public SysUser getUser() {
+        return user;
+    }
+
+    public void setUser(SysUser user) {
+        this.user = user;
+    }
+
 }

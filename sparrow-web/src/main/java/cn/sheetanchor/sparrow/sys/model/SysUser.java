@@ -1,9 +1,18 @@
 package cn.sheetanchor.sparrow.sys.model;
 
+import cn.sheetanchor.common.config.Global;
+import cn.sheetanchor.common.persistence.DataEntity;
+import cn.sheetanchor.common.supcan.annotation.treelist.cols.SupCol;
 import cn.sheetanchor.common.utils.Collections3;
+import cn.sheetanchor.common.utils.excel.annotation.ExcelField;
+import cn.sheetanchor.common.utils.excel.fieldtype.RoleListType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -13,144 +22,53 @@ import java.util.List;
  * @Date 2017/2/4
  * @Desc 用户表
  */
-@Entity
-@Table(name = "sys_user")
-public class SysUser implements Serializable{
-    private static final long serialVersionUID = 6522791833157255091L;
-    private String id;
-    private String companyId;
-    private String officeId;
-    private String loginName;
-    private String password;
-    private String no;
-    private String name;
-    private String email;
-    private String phone;
-    private String mobile;
-    private String userType;
-    private String photo;
-    private String loginIp;
-    private Date loginDate;
-    private String loginFlag;
-    private String createBy;
-    private Date createDate;
-    private String updateBy;
-    private Date updateDate;
-    private String remarks;
-    private String delFlag;
+public class SysUser extends DataEntity<SysUser> {
 
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
+    private static final long serialVersionUID = 1L;
+    private SysOffice company;	// 归属公司
+    private SysOffice office;	// 归属部门
+    private String loginName;// 登录名
+    private String password;// 密码
+    private String no;		// 工号
+    private String name;	// 姓名
+    private String email;	// 邮箱
+    private String phone;	// 电话
+    private String mobile;	// 手机
+    private String userType;// 用户类型
+    private String loginIp;	// 最后登陆IP
+    private Date loginDate;	// 最后登陆日期
+    private String loginFlag;	// 是否允许登陆
+    private String photo;	// 头像
+
+    private String oldLoginName;// 原登录名
+    private String newPassword;	// 新密码
+
+    private String oldLoginIp;	// 上次登陆IP
+    private Date oldLoginDate;	// 上次登陆日期
+
+    private SysRole role;	// 根据角色查询用户条件
+
+    private List<SysRole> roleList = Lists.newArrayList(); // 拥有角色列表
+
+    public SysUser() {
+        super();
+        this.loginFlag = Global.YES;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public SysUser(String id){
+        super(id);
     }
 
-    @Basic
-    @Column(name = "company_id")
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
-    @Basic
-    @Column(name = "office_id")
-    public String getOfficeId() {
-        return officeId;
-    }
-
-    public void setOfficeId(String officeId) {
-        this.officeId = officeId;
-    }
-
-    @Basic
-    @Column(name = "login_name")
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
+    public SysUser(String id, String loginName){
+        super(id);
         this.loginName = loginName;
     }
 
-    @Basic
-    @Column(name = "password")
-    public String getPassword() {
-        return password;
+    public SysUser(SysRole role){
+        super();
+        this.role = role;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Basic
-    @Column(name = "no")
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Basic
-    @Column(name = "email")
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Basic
-    @Column(name = "phone")
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    @Basic
-    @Column(name = "mobile")
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    @Basic
-    @Column(name = "user_type")
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    @Basic
-    @Column(name = "photo")
     public String getPhoto() {
         return photo;
     }
@@ -159,28 +77,6 @@ public class SysUser implements Serializable{
         this.photo = photo;
     }
 
-    @Basic
-    @Column(name = "login_ip")
-    public String getLoginIp() {
-        return loginIp;
-    }
-
-    public void setLoginIp(String loginIp) {
-        this.loginIp = loginIp;
-    }
-
-    @Basic
-    @Column(name = "login_date")
-    public Date getLoginDate() {
-        return loginDate;
-    }
-
-    public void setLoginDate(Date loginDate) {
-        this.loginDate = loginDate;
-    }
-
-    @Basic
-    @Column(name = "login_flag")
     public String getLoginFlag() {
         return loginFlag;
     }
@@ -189,152 +85,15 @@ public class SysUser implements Serializable{
         this.loginFlag = loginFlag;
     }
 
-    @Basic
-    @Column(name = "create_by")
-    public String getCreateBy() {
-        return createBy;
+    @SupCol(isUnique="true", isHide="true")
+    @ExcelField(title="ID", type=1, align=2, sort=1)
+    public String getId() {
+        return id;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Basic
-    @Column(name = "create_date")
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    @Basic
-    @Column(name = "update_by")
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    @Basic
-    @Column(name = "update_date")
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    @Basic
-    @Column(name = "remarks")
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    @Basic
-    @Column(name = "del_flag")
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SysUser sysUser = (SysUser) o;
-
-        if (id != null ? !id.equals(sysUser.id) : sysUser.id != null) return false;
-        if (companyId != null ? !companyId.equals(sysUser.companyId) : sysUser.companyId != null) return false;
-        if (officeId != null ? !officeId.equals(sysUser.officeId) : sysUser.officeId != null) return false;
-        if (loginName != null ? !loginName.equals(sysUser.loginName) : sysUser.loginName != null) return false;
-        if (password != null ? !password.equals(sysUser.password) : sysUser.password != null) return false;
-        if (no != null ? !no.equals(sysUser.no) : sysUser.no != null) return false;
-        if (name != null ? !name.equals(sysUser.name) : sysUser.name != null) return false;
-        if (email != null ? !email.equals(sysUser.email) : sysUser.email != null) return false;
-        if (phone != null ? !phone.equals(sysUser.phone) : sysUser.phone != null) return false;
-        if (mobile != null ? !mobile.equals(sysUser.mobile) : sysUser.mobile != null) return false;
-        if (userType != null ? !userType.equals(sysUser.userType) : sysUser.userType != null) return false;
-        if (photo != null ? !photo.equals(sysUser.photo) : sysUser.photo != null) return false;
-        if (loginIp != null ? !loginIp.equals(sysUser.loginIp) : sysUser.loginIp != null) return false;
-        if (loginDate != null ? !loginDate.equals(sysUser.loginDate) : sysUser.loginDate != null) return false;
-        if (loginFlag != null ? !loginFlag.equals(sysUser.loginFlag) : sysUser.loginFlag != null) return false;
-        if (createBy != null ? !createBy.equals(sysUser.createBy) : sysUser.createBy != null) return false;
-        if (createDate != null ? !createDate.equals(sysUser.createDate) : sysUser.createDate != null) return false;
-        if (updateBy != null ? !updateBy.equals(sysUser.updateBy) : sysUser.updateBy != null) return false;
-        if (updateDate != null ? !updateDate.equals(sysUser.updateDate) : sysUser.updateDate != null) return false;
-        if (remarks != null ? !remarks.equals(sysUser.remarks) : sysUser.remarks != null) return false;
-        if (delFlag != null ? !delFlag.equals(sysUser.delFlag) : sysUser.delFlag != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
-        result = 31 * result + (officeId != null ? officeId.hashCode() : 0);
-        result = 31 * result + (loginName != null ? loginName.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (no != null ? no.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
-        result = 31 * result + (userType != null ? userType.hashCode() : 0);
-        result = 31 * result + (photo != null ? photo.hashCode() : 0);
-        result = 31 * result + (loginIp != null ? loginIp.hashCode() : 0);
-        result = 31 * result + (loginDate != null ? loginDate.hashCode() : 0);
-        result = 31 * result + (loginFlag != null ? loginFlag.hashCode() : 0);
-        result = 31 * result + (createBy != null ? createBy.hashCode() : 0);
-        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
-        result = 31 * result + (updateBy != null ? updateBy.hashCode() : 0);
-        result = 31 * result + (updateDate != null ? updateDate.hashCode() : 0);
-        result = 31 * result + (remarks != null ? remarks.hashCode() : 0);
-        result = 31 * result + (delFlag != null ? delFlag.hashCode() : 0);
-        return result;
-    }
-
-    private List<SysRole> roles;
-    private SysOffice office;
-    private SysOffice company;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="sys_user_role",
-            joinColumns={@JoinColumn(name="user_id")},
-            inverseJoinColumns={@JoinColumn(name="role_id")})
-    public List<SysRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SysRole> roles) {
-        this.roles = roles;
-    }
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.EAGER)
-    @JoinColumn(name = "office_id",insertable = false,updatable = false)
-    public SysOffice getOffice() {
-        return office;
-    }
-
-    public void setOffice(SysOffice office) {
-        this.office = office;
-    }
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.EAGER)
-    @JoinColumn(name = "company_id",insertable = false,updatable = false)
+    @JsonIgnore
+    @NotNull(message="归属公司不能为空")
+    @ExcelField(title="归属公司", align=2, sort=20)
     public SysOffice getCompany() {
         return company;
     }
@@ -343,42 +102,219 @@ public class SysUser implements Serializable{
         this.company = company;
     }
 
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2017/2/6 16:33
-     * @Desc 是否超级管理员
-     */
-    @Transient
-    public boolean isAdmin(){
-        boolean flag = false;
-        List<SysRole> roles = getRoles();
-        for(SysRole role : roles){
-            if(role.getEnname().equals("superadmin")) flag = true;
-        }
-        return flag;
+    @JsonIgnore
+    @NotNull(message="归属部门不能为空")
+    @ExcelField(title="归属部门", align=2, sort=25)
+    public SysOffice getOffice() {
+        return office;
     }
 
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2017/2/7 15:21
-     * @Desc 获取当前登录人所有菜单
-     */
-    @Transient
-    public List<SysMenu> getMenuList() {
-        List<SysMenu> menus = null;
-        List<SysRole> roles = getRoles();
-        for(SysRole role : roles){
-            List<SysMenu> menu = role.getMenus();
-            menus.addAll(menu);
+    public void setOffice(SysOffice office) {
+        this.office = office;
+    }
+
+    @Length(min=1, max=100, message="登录名长度必须介于 1 和 100 之间")
+    @ExcelField(title="登录名", align=2, sort=30)
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    @JsonIgnore
+    @Length(min=1, max=100, message="密码长度必须介于 1 和 100 之间")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Length(min=1, max=100, message="姓名长度必须介于 1 和 100 之间")
+    @ExcelField(title="姓名", align=2, sort=40)
+    public String getName() {
+        return name;
+    }
+
+    @Length(min=1, max=100, message="工号长度必须介于 1 和 100 之间")
+    @ExcelField(title="工号", align=2, sort=45)
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Email(message="邮箱格式不正确")
+    @Length(min=0, max=200, message="邮箱长度必须介于 1 和 200 之间")
+    @ExcelField(title="邮箱", align=1, sort=50)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Length(min=0, max=200, message="电话长度必须介于 1 和 200 之间")
+    @ExcelField(title="电话", align=2, sort=60)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Length(min=0, max=200, message="手机长度必须介于 1 和 200 之间")
+    @ExcelField(title="手机", align=2, sort=70)
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    @ExcelField(title="备注", align=1, sort=900)
+    public String getRemarks() {
+        return remarks;
+    }
+
+    @Length(min=0, max=100, message="用户类型长度必须介于 1 和 100 之间")
+    @ExcelField(title="用户类型", align=2, sort=80, dictType="sys_user_type")
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    @ExcelField(title="创建时间", type=0, align=1, sort=90)
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    @ExcelField(title="最后登录IP", type=1, align=1, sort=100)
+    public String getLoginIp() {
+        return loginIp;
+    }
+
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ExcelField(title="最后登录日期", type=1, align=1, sort=110)
+    public Date getLoginDate() {
+        return loginDate;
+    }
+
+    public void setLoginDate(Date loginDate) {
+        this.loginDate = loginDate;
+    }
+
+    public String getOldLoginName() {
+        return oldLoginName;
+    }
+
+    public void setOldLoginName(String oldLoginName) {
+        this.oldLoginName = oldLoginName;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getOldLoginIp() {
+        if (oldLoginIp == null){
+            return loginIp;
         }
-        return menus;
+        return oldLoginIp;
+    }
+
+    public void setOldLoginIp(String oldLoginIp) {
+        this.oldLoginIp = oldLoginIp;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date getOldLoginDate() {
+        if (oldLoginDate == null){
+            return loginDate;
+        }
+        return oldLoginDate;
+    }
+
+    public void setOldLoginDate(Date oldLoginDate) {
+        this.oldLoginDate = oldLoginDate;
+    }
+
+    public SysRole getRole() {
+        return role;
+    }
+
+    public void setRole(SysRole role) {
+        this.role = role;
+    }
+
+    @JsonIgnore
+    @ExcelField(title="拥有角色", align=1, sort=800, fieldType=RoleListType.class)
+    public List<SysRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SysRole> roleList) {
+        this.roleList = roleList;
+    }
+
+    @JsonIgnore
+    public List<String> getRoleIdList() {
+        List<String> roleIdList = Lists.newArrayList();
+        for (SysRole role : roleList) {
+            roleIdList.add(role.getId());
+        }
+        return roleIdList;
+    }
+
+    public void setRoleIdList(List<String> roleIdList) {
+        roleList = Lists.newArrayList();
+        for (String roleId : roleIdList) {
+            SysRole role = new SysRole();
+            role.setId(roleId);
+            roleList.add(role);
+        }
     }
 
     /**
      * 用户拥有的角色名称字符串, 多个角色名称用','分隔.
      */
-    @Transient
     public String getRoleNames() {
-        return Collections3.extractToString(roles, "name", ",");
+        return Collections3.extractToString(roleList, "name", ",");
+    }
+
+    public boolean isAdmin(){
+        return isAdmin(this.id);
+    }
+
+    public static boolean isAdmin(String id){
+        return id != null && "1".equals(id);
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 }
