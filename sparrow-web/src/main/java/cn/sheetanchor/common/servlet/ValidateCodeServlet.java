@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package cn.sheetanchor.common.servlet;
 
 import org.apache.commons.lang3.StringUtils;

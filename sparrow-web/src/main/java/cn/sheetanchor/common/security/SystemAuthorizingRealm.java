@@ -1,7 +1,6 @@
 package cn.sheetanchor.common.security;
 
 import cn.sheetanchor.common.config.Global;
-import cn.sheetanchor.common.security.shiro.session.SessionDAO;
 import cn.sheetanchor.common.servlet.ValidateCodeServlet;
 import cn.sheetanchor.common.utils.*;
 import cn.sheetanchor.sparrow.sys.controller.sysLoginController;
@@ -27,10 +26,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
+import static cn.sheetanchor.sparrow.sys.service.impl.SystemServiceImpl.HASH_ALGORITHM;
+import static cn.sheetanchor.sparrow.sys.service.impl.SystemServiceImpl.HASH_INTERATIONS;
 
 
 /**
@@ -43,9 +44,9 @@ import java.util.List;
 public class SystemAuthorizingRealm extends AuthorizingRealm {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	public static final String HASH_ALGORITHM = "SHA-1";
-	public static final int HASH_INTERATIONS = 1024;
-	public static final int SALT_SIZE = 8;
+
+	private SystemService systemService;
+
 	public SystemAuthorizingRealm() {
 		this.setCachingEnabled(false);
 	}
@@ -57,7 +58,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		
-		int activeSessionSize = sessionDAO.getActiveSessions(false).size();
+		int activeSessionSize = getSystemService().getSessionDao().getActiveSessions(false).size();
 		if (logger.isDebugEnabled()){
 			logger.debug("login submit, active session size: {}, username: {}", activeSessionSize, token.getUsername());
 		}
@@ -109,12 +110,12 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 		Principal principal = (Principal) getAvailablePrincipal(principals);
 		// 获取当前已登录的用户
 		if (!Global.TRUE.equals(Global.getConfig("user.multiAccountLogin"))){
-			Collection<Session> sessions = sessionDAO.getActiveSessions(true, principal, UserUtils.getSession());
+			Collection<Session> sessions = getSystemService().getSessionDao().getActiveSessions(true, principal, UserUtils.getSession());
 			if (sessions.size() > 0){
 				// 如果是登录进来的，则踢出已在线用户
 				if (UserUtils.getSubject().isAuthenticated()){
 					for (Session session : sessions){
-						sessionDAO.delete(session);
+						getSystemService().getSessionDao().delete(session);
 					}
 				}
 				// 记住我进来的，并且当前用户已登录，则退出当前用户提示信息。
@@ -139,17 +140,26 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 			// 添加用户权限
 			info.addStringPermission("user");
 			// 添加用户角色信息
-			for (SysRole role : user.getRoles()){
+			for (SysRole role : user.getRoleList()){
 				info.addRole(role.getEnname());
 			}
 			// 更新登录IP和时间
-			systemService.updateUserLoginInfo(user);
+			getSystemService().updateUserLoginInfo(user);
 			// 记录登录日志
 			LogUtils.saveLog(Servlets.getRequest(), "系统登录");
 			return info;
 		} else {
 			return null;
 		}
+	}
+	/**
+	 * 获取系统业务对象
+	 */
+	public SystemService getSystemService() {
+		if (systemService == null){
+			systemService = SpringContextHolder.getBean(SystemService.class);
+		}
+		return systemService;
 	}
 	
 	@Override
@@ -256,9 +266,4 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 		}
 
 	}
-
-	@Resource
-	private SystemService systemService;
-	@Resource
-	private SessionDAO sessionDAO;
 }

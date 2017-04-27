@@ -1,6 +1,7 @@
 package cn.sheetanchor.common.utils;
 
 import cn.sheetanchor.common.security.SystemAuthorizingRealm.Principal;
+import cn.sheetanchor.common.service.BaseService;
 import cn.sheetanchor.sparrow.sys.dao.*;
 import cn.sheetanchor.sparrow.sys.model.*;
 import org.apache.shiro.SecurityUtils;
@@ -22,32 +23,11 @@ import java.util.List;
 @Component
 public class UserUtils {
 
-	@Resource
-	private UserDao userDao;
-	@Resource
-	private RoleDao roleDao;
-	@Resource
-	private MenuDao menuDao;
-	@Resource
-	private AreaDao areaDao;
-	@Resource
-	private OfficeDao officeDao;
-
-	private static UserDao staticUserDao;
-	private static RoleDao staticRoleDao;
-	private static MenuDao staticMenuDao;
-	private static AreaDao staticAreaDao;
-	private static OfficeDao staticOfficeDao;
-	@PostConstruct
-	public void init(){
-		//静态方法中注入bean
-		UserUtils.staticUserDao = userDao;
-		UserUtils.staticRoleDao = roleDao;
-		UserUtils.staticMenuDao = menuDao;
-		UserUtils.staticAreaDao = areaDao;
-		UserUtils.staticOfficeDao = officeDao;
-
-	}
+	private static UserDao userDao = SpringContextHolder.getBean(UserDao.class);
+	private static RoleDao roleDao = SpringContextHolder.getBean(RoleDao.class);
+	private static MenuDao menuDao = SpringContextHolder.getBean(MenuDao.class);
+	private static AreaDao areaDao = SpringContextHolder.getBean(AreaDao.class);
+	private static OfficeDao officeDao = SpringContextHolder.getBean(OfficeDao.class);
 
 	public static final String USER_CACHE = "userCache";
 	public static final String USER_CACHE_ID_ = "id_";
@@ -69,7 +49,7 @@ public class UserUtils {
 	public static SysUser get(String id){
 		SysUser user = (SysUser)CacheUtils.get(USER_CACHE, USER_CACHE_ID_ + id);
 		if (user ==  null){
-			user = staticUserDao.findById(id);
+			user = userDao.get(id);
 			if (user == null){
 				return null;
 			}
@@ -87,7 +67,7 @@ public class UserUtils {
 	public static SysUser getByLoginName(String loginName){
 		SysUser user = (SysUser)CacheUtils.get(USER_CACHE, USER_CACHE_LOGIN_NAME_ + loginName);
 		if (user == null){
-			user = staticUserDao.findByLoginName(loginName);
+			user = userDao.getByLoginName(new SysUser(null, loginName));
 			if (user == null){
 				return null;
 			}
@@ -149,9 +129,11 @@ public class UserUtils {
 		if (roleList == null){
 			SysUser user = getUser();
 			if (user.isAdmin()){
-				roleList = staticRoleDao.findAllList();
+				roleList = roleDao.findAllList(new SysRole());
 			}else{
-				roleList = user.getRoles();
+				SysRole role = new SysRole();
+				role.getSqlMap().put("dsf", BaseService.dataScopeFilter(user.getCurrentUser(), "o", "u"));
+				roleList = roleDao.findList(role);
 			}
 			putCache(CACHE_ROLE_LIST, roleList);
 		}
@@ -168,9 +150,11 @@ public class UserUtils {
 		if (menuList == null){
 			SysUser user = getUser();
 			if (user.isAdmin()){
-				menuList = staticMenuDao.findAllList();
+				menuList = menuDao.findAllList(new SysMenu());
 			}else{
-				menuList = user.getMenuList();
+				SysMenu m = new SysMenu();
+				m.setUserId(user.getId());
+				menuList = menuDao.findByUserId(m);
 			}
 			putCache(CACHE_MENU_LIST, menuList);
 		}
@@ -185,7 +169,7 @@ public class UserUtils {
 		@SuppressWarnings("unchecked")
 		List<SysArea> areaList = (List<SysArea>)getCache(CACHE_AREA_LIST);
 		if (areaList == null){
-			areaList = staticAreaDao.findAllList();
+			areaList = areaDao.findAllList(new SysArea());
 			putCache(CACHE_AREA_LIST, areaList);
 		}
 		return areaList;
@@ -201,10 +185,11 @@ public class UserUtils {
 		if (officeList == null){
 			SysUser user = getUser();
 			if (user.isAdmin()){
-				officeList = staticOfficeDao.findAllList();
+				officeList = officeDao.findAllList(new SysOffice());
 			}else{
-				SysOffice office = user.getOffice();
-				officeList.add(office);
+				SysOffice office = new SysOffice();
+				office.getSqlMap().put("dsf", BaseService.dataScopeFilter(user, "a", ""));
+				officeList = officeDao.findList(office);
 			}
 			putCache(CACHE_OFFICE_LIST, officeList);
 		}
@@ -219,7 +204,7 @@ public class UserUtils {
 		@SuppressWarnings("unchecked")
 		List<SysOffice> officeList = (List<SysOffice>)getCache(CACHE_OFFICE_ALL_LIST);
 		if (officeList == null){
-			officeList = staticOfficeDao.findAllList();
+			officeList = officeDao.findAllList(new SysOffice());
 		}
 		return officeList;
 	}

@@ -1,4 +1,4 @@
-package cn.sheetanchor.common.page;
+package cn.sheetanchor.common.persistence;
 
 import cn.sheetanchor.common.config.Global;
 import cn.sheetanchor.common.utils.CookieUtils;
@@ -257,7 +257,8 @@ public class Page<T> {
 					+ "下一页 &#187;</a></li>\n");
 		}
 
-		sb.append("<li class=\"disabled controls\"><a href=\"javascript:\">当前 ");
+
+		sb.append("<div style=\"clear:both;\"></div>");		sb.append("<li class=\"disabled controls\"><a href=\"javascript:\">当前 ");
 		sb.append("<input type=\"text\" value=\""+pageNo+"\" onkeypress=\"var e=window.event||event;var c=e.keyCode||e.which;if(c==13)");
 		sb.append(funcName+"(this.value,"+pageSize+",'"+funcParam+"');\" onclick=\"this.select();\"/> / ");
 		sb.append("<input type=\"text\" value=\""+pageSize+"\" onkeypress=\"var e=window.event||event;var c=e.keyCode||e.which;if(c==13)");
@@ -265,8 +266,7 @@ public class Page<T> {
 		sb.append("共 " + count + " 条"+(message!=null?message:"")+"</a></li>\n");
 
 		sb.insert(0,"<ul>\n").append("</ul>\n");
-		
-		sb.append("<div style=\"clear:both;\"></div>");
+
 
 //		sb.insert(0,"<div class=\"page\">\n").append("</div>\n");
 		
@@ -531,36 +531,4 @@ public class Page<T> {
 		return getPageSize();
 	}
 
-//	/**
-//	 * 获取 Spring data JPA 分页对象
-//	 */
-//	public Pageable getSpringPage(){
-//		List<Order> orders = new ArrayList<Order>();
-//		if (orderBy!=null){
-//			for (String order : StringUtils.split(orderBy, ",")){
-//				String[] o = StringUtils.split(order, " ");
-//				if (o.length==1){
-//					orders.add(new Order(Direction.ASC, o[0]));
-//				}else if (o.length==2){
-//					if ("DESC".equals(o[1].toUpperCase())){
-//						orders.add(new Order(Direction.DESC, o[0]));
-//					}else{
-//						orders.add(new Order(Direction.ASC, o[0]));
-//					}
-//				}
-//			}
-//		}
-//		return new PageRequest(this.pageNo - 1, this.pageSize, new Sort(orders));
-//	}
-//	
-//	/**
-//	 * 设置 Spring data JPA 分页对象，转换为本系统分页对象
-//	 */
-//	public void setSpringPage(org.springframework.data.domain.Page<T> page){
-//		this.pageNo = page.getNumber();
-//		this.pageSize = page.getSize();
-//		this.count = page.getTotalElements();
-//		this.list = page.getContent();
-//	}
-	
 }

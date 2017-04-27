@@ -8,19 +8,9 @@ import cn.sheetanchor.sparrow.sys.model.SysUser;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate4.SessionFactoryUtils;
-import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -35,20 +25,9 @@ import java.util.Map;
 public class LogUtils {
 	
 	public static final String CACHE_MENU_NAME_PATH_MAP = "menuNamePathMap";
-	@Resource
-	private MenuDao menuDao;
-	@Resource
-	private LogDao logDao;
+	private static LogDao logDao = SpringContextHolder.getBean(LogDao.class);
+	private static MenuDao menuDao = SpringContextHolder.getBean(MenuDao.class);
 
-	private static MenuDao staticMenuDao;
-	private static LogDao staticLogDao;
-	@PostConstruct
-	public void init(){
-		//静态方法中注入bean
-		LogUtils.staticMenuDao = menuDao;
-		LogUtils.staticLogDao = logDao;
-
-	}
 	/**
 	 * 保存日志
 	 */
@@ -92,10 +71,6 @@ public class LogUtils {
 		}
 		@Override
 		public void run() {
-			// 为当前线程绑定一个session对象,让dao中使用 getCurrentSession的方法可以获取到对应的session
-			WebApplicationContext applicationContext = ContextLoader.getCurrentWebApplicationContext();
-			SessionFactory sessionFactory = (SessionFactory)applicationContext.getBean("sessionFactory");
-			boolean participate = bindHibernateSessionToThread(sessionFactory);
 			// 获取日志标题
 			if (StringUtils.isBlank(log.getTitle())){
 				String permission = "";
@@ -114,31 +89,7 @@ public class LogUtils {
 			}
 			// 保存日志信息
 			log.preInsert();
-			try {
-				staticLogDao.save(log);
-			} finally {
-				closeHibernateSessionFromThread(participate, sessionFactory);
-			}
-		}
-		//绑定session
-		public static boolean bindHibernateSessionToThread(SessionFactory sessionFactory) {
-			if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
-				return true;
-			} else {
-				Session session = sessionFactory.openSession();
-				session.setFlushMode(FlushMode.MANUAL);
-				SessionHolder sessionHolder = new SessionHolder(session);
-				TransactionSynchronizationManager.bindResource(sessionFactory, sessionHolder);
-			}
-			return false;
-		}
-		//关闭session
-		public static void closeHibernateSessionFromThread(boolean participate, Object sessionFactory) {
-
-			if (!participate) {
-				SessionHolder sessionHolder = (SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);
-				SessionFactoryUtils.closeSession(sessionHolder.getSession());
-			}
+			logDao.insert(log);
 		}
 	}
 
@@ -150,7 +101,7 @@ public class LogUtils {
 		Map<String, String> menuMap = (Map<String, String>)CacheUtils.get(CACHE_MENU_NAME_PATH_MAP);
 		if (menuMap == null){
 			menuMap = Maps.newHashMap();
-			List<SysMenu> menuList = staticMenuDao.findAllList();
+			List<SysMenu> menuList = menuDao.findAllList(new SysMenu());
 			for (SysMenu menu : menuList){
 				// 获取菜单名称路径（如：系统设置-机构用户-用户管理-编辑）
 				String namePath = "";
