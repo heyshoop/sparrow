@@ -1,5 +1,7 @@
 package cn.sheetanchor.sparrow.sys.dao;
 
+import cn.sheetanchor.common.persistence.BaseDao;
+import cn.sheetanchor.common.persistence.annotation.MyBatisDao;
 import cn.sheetanchor.sparrow.sys.model.SysLog;
 
 /**
@@ -8,6 +10,7 @@ import cn.sheetanchor.sparrow.sys.model.SysLog;
  * @Date 2017/2/6
  * @Desc 日志Dao
  */
-public interface LogDao {
-    public SysLog save(SysLog log);
+@MyBatisDao
+public interface LogDao extends BaseDao<SysLog> {
+
 }

@@ -1,8 +1,9 @@
 package cn.sheetanchor.sparrow.sys.dao;
 
+import cn.sheetanchor.common.persistence.TreeDao;
+import cn.sheetanchor.common.persistence.annotation.MyBatisDao;
 import cn.sheetanchor.sparrow.sys.model.SysArea;
 
-import java.util.List;
 
 /**
  * @Author 阁楼麻雀
@@ -10,11 +11,7 @@ import java.util.List;
  * @Date 2017/2/7
  * @Desc 区域Dao
  */
-public interface AreaDao {
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2017/2/7 16:09
-     * @Desc 查询所有区域
-     */
-    List<SysArea> findAllList();
+@MyBatisDao
+public interface AreaDao extends TreeDao<SysArea> {
+
 }
