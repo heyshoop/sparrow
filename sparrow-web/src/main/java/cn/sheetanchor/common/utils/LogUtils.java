@@ -21,7 +21,6 @@ import java.util.Map;
  * @Date 2017/2/4 16:47
  * @Desc 日志工具类
  */
-@Component
 public class LogUtils {
 	
 	public static final String CACHE_MENU_NAME_PATH_MAP = "menuNamePathMap";

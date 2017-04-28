@@ -1,7 +1,7 @@
 package cn.sheetanchor.sparrow.sys.controller;
 
 import cn.sheetanchor.common.config.Global;
-import cn.sheetanchor.common.page.Page;
+import cn.sheetanchor.common.persistence.Page;
 import cn.sheetanchor.common.utils.StringUtils;
 import cn.sheetanchor.common.utils.UserUtils;
 import cn.sheetanchor.common.web.BaseController;
@@ -94,7 +94,7 @@ public class sysUserController extends BaseController{
     @RequiresPermissions("sys:user:view")
     @RequestMapping(value = {"list", ""})
     public String list(SysUser user, Model model, HttpServletRequest request, HttpServletResponse response) {
-        Page<SysUser> page = systemService.getPageForUser(new Page<SysUser>(request, response),user);
+        Page<SysUser> page = systemService.findUser(new Page<SysUser>(request, response),user);
         model.addAttribute("page", page);
         model.addAttribute("user", user);
         return "include/sys/userList";

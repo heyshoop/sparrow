@@ -21,4 +21,24 @@ public interface UserDao extends BaseDao<SysUser>{
      */
     public SysUser getByLoginName(SysUser user);
 
+    /**
+     * 更新登录信息，如：登录IP、登录时间
+     * @param user
+     * @return
+     */
+    public int updateLoginInfo(SysUser user);
+
+    /**
+     * 更新用户密码
+     * @param user
+     * @return
+     */
+    public int updatePasswordById(SysUser user);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    public int updateUserInfo(SysUser user);
 }

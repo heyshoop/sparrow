@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
 	   xmlns:cache="http://www.springframework.org/schema/cache" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
@@ -18,56 +17,35 @@
     <util:properties id="APP_PROP" location="classpath:sparrow.properties" local-override="true"/>
 	<context:annotation-config/>
 	<!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
-	<context:component-scan base-package="cn.sheetanchor.sparrow.*.controller"><!-- base-package 如果多个，用“,”分隔 -->
+	<context:component-scan base-package="cn.sheetanchor"><!-- base-package 如果多个，用“,”分隔 -->
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	<tx:annotation-driven/>
-	<context:component-scan base-package="cn.sheetanchor"></context:component-scan>
- 	<!-- hibernate begin -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+	<!-- MyBatis begin -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="cn.sheetanchor"/>
+		<property name="typeAliasesSuperType" value="cn.sheetanchor.common.persistence.BaseEntity"/>
+		<property name="mapperLocations" value="classpath:/mappings/**/*.xml"/>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	</bean>
+
+	<!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage" value="cn.sheetanchor"/>
+		<property name="annotationClass" value="cn.sheetanchor.common.persistence.annotation.MyBatisDao"/>
+	</bean>
+
+	<!-- 定义事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
-			<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-				<prop key="hibernate.query.substitutions">${hibernate.substitutions}</prop>
-				<prop key="jdbc.batch_size">${hibernate.batch_size}</prop>
-				<prop key="jdbc.use_streams_for_binary">${hibernate.use_streams_for_binary}</prop>
-				<prop key="hibernate.temp.use_jdbc_metadata_defaults">${hibernate.use_jdbc_metadata_defaults}</prop>
-				<prop key="hibernate.connection.autocommit">${hibernate.autocommit}</prop>
-				<prop key="hibernate.connection.release_mode">${hibernate.release_mode}</prop>
-				<prop key="hibernate.cache.use_query_cache">true</prop><!-- 开启查询缓存 -->
-				<prop key="hibernate.cache.use_second_level_cache">true</prop><!-- 开启二级缓存 -->
-				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
-				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
-				<prop key="hibernate.connection.url">${jdbc.url}</prop>
-				<prop key="hibernate.connection.driver_class">${jdbc.driver}</prop>
-
-				<!--<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
-                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>&lt;!&ndash; 高速缓存提供程序 &ndash;&gt;
-                <prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</prop>&lt;!&ndash; 指定缓存配置文件位置 &ndash;&gt;
-                <prop key="hibernate.cache.use_structured_entries">true</prop>&lt;!&ndash; 强制Hibernate以更人性化的格式将数据存入二级缓存 &ndash;&gt;
-                <prop key="hibernate.generate_statistics">true</prop>&lt;!&ndash; Hibernate将收集有助于性能调节的统计数据 &ndash;&gt;
-                <prop key="javax.persistence.validation.mode">none</prop>-->
-			</props>
-		</property>
-		<!-- 自动扫描注解方式配置的hibernate类文件 -->
-		<property name="packagesToScan">
-			<list>
-				<value>cn.sheetanchor.sparrow.*.model</value>
-			</list>
-		</property>
 	</bean>
 
-	<!-- 配置事务管理器 -->
-	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-
-	<!-- 开启通过注解@Transactional管理事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" mode="proxy"/>
-    <!-- hibernate end -->
+	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	<!-- MyBatis end -->
     
 	<!-- 配置 JSR303 Bean Validator 定义 -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />

@@ -20,7 +20,6 @@ import java.util.List;
  * @Date 2017/2/6 13:47
  * @Desc 用户工具类
  */
-@Component
 public class UserUtils {
 
 	private static UserDao userDao = SpringContextHolder.getBean(UserDao.class);

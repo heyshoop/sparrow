@@ -71,7 +71,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 			}
 		}
 		// 校验用户名密码
-		SysUser user = systemService.getUserByLoginName(token.getUsername());
+		SysUser user = getSystemService().getUserByLoginName(token.getUsername());
 		if (user != null) {
 			if (Global.NO.equals(user.getLoginFlag())){
 				throw new AuthenticationException("msg:该已帐号禁止登录.");
@@ -125,7 +125,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 				}
 			}
 		}
-		SysUser user = systemService.getUserByLoginName(principal.getLoginName());
+		SysUser user = getSystemService().getUserByLoginName(principal.getLoginName());
 		if (user != null) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 			List<SysMenu> list = UserUtils.getMenuList();

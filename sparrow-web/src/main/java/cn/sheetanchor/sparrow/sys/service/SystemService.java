@@ -1,6 +1,7 @@
 package cn.sheetanchor.sparrow.sys.service;
 
-import cn.sheetanchor.common.page.Page;
+import cn.sheetanchor.common.persistence.Page;
+import cn.sheetanchor.common.security.shiro.session.SessionDAO;
 import cn.sheetanchor.sparrow.sys.model.SysRole;
 import cn.sheetanchor.sparrow.sys.model.SysUser;
 
@@ -52,12 +53,6 @@ public interface SystemService {
     void updatePasswordById(String id, String loginName, String newPassword);
     /**
      * @Author 阁楼麻雀
-     * @Date 2017/3/1 17:51
-     * @Desc 分页查询
-     */
-    Page<SysUser> getPageForUser(Page<SysUser> sysUserPage, SysUser user);
-    /**
-     * @Author 阁楼麻雀
      * @Date 2017/3/7 14:37
      * @Desc 查询角色
      */
@@ -68,4 +63,18 @@ public interface SystemService {
      * @Desc 删除用户
      */
     void deleteUser(SysUser user);
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/4/27 16:32
+     * @Desc 获取sessionDao
+     */
+    SessionDAO getSessionDao();
+
+    /**
+     * @Author 阁楼麻雀
+     * @Date 2017/4/28 14:18
+     * @Desc 分页查询用户
+     */
+    Page<SysUser> findUser(Page<SysUser> sysUserPage, SysUser user);
 }

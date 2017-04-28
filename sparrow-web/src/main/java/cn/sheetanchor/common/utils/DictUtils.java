@@ -20,18 +20,7 @@ import java.util.Map;
 
 public class DictUtils {
 
-	@Resource
-	private DictDao dictDao;
-
-	private static DictDao staticDictDao;
-
-	@PostConstruct
-	public void init(){
-		//静态方法中注入bean
-		DictUtils.staticDictDao = dictDao;
-
-	}
-
+	private static DictDao dictDao = SpringContextHolder.getBean(DictDao.class);
 
 	public static final String CACHE_DICT_MAP = "dictMap";
 
@@ -73,7 +62,7 @@ public class DictUtils {
 		Map<String, List<SysDict>> dictMap = (Map<String, List<SysDict>>)CacheUtils.get(CACHE_DICT_MAP);
 		if (dictMap==null){
 			dictMap = Maps.newHashMap();
-			for (SysDict dict : staticDictDao.findAllList()){
+			for (SysDict dict : dictDao.findAllList(new SysDict())){
 				List<SysDict> dictList = dictMap.get(dict.getType());
 				if (dictList != null){
 					dictList.add(dict);
