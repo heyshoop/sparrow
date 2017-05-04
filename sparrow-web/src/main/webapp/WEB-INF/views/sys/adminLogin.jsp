@@ -1,5 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+
+<link href="${ctxStatic}/assets/css/animate.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/css/style.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/css/style-responsive.min.css" rel="stylesheet" />
+<script src="${ctxStatic}/assets/js/apps.min.js"></script>
+<script src="${ctxStatic}/assets/js/login.min.js"></script>
 <%--
   Created by IntelliJ IDEA.
   User: Netuser

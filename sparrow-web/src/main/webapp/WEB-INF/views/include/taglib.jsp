@@ -7,44 +7,15 @@
 <%@ taglib prefix="shiro" uri="/WEB-INF/tlds/shiros.tld" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}${fns:getAdminPath()}"/>
 <c:set var="ctxStatic" value="${pageContext.request.contextPath}/static"/>
-
-<!-- ================== BEGIN BASE CSS STYLE ================== -->
-<link href="${ctxStatic}/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/css/animate.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/css/style.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/css/style-responsive.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-<!-- ================== END BASE CSS STYLE ================== -->
-
-<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-<link href="${ctxStatic}/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/plugins/jquery-jbox/2.3/Skins/Bootstrap/jbox.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-<link href="${ctxStatic}/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
-<!-- ================== END PAGE LEVEL STYLE ================== -->
-
-<!-- ================== BEGIN BASE JS ================== -->
-<script src="${ctxStatic}/assets/plugins/pace/pace.min.js"></script>
-<!-- ================== END BASE JS ================== -->
-
-<!-- ================== BEGIN BASE JS ================== -->
+<%--==================================基础JS库========================================--%>
 <script src="${ctxStatic}/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+<script src="${ctxStatic}/assets/plugins/jquery-hashchange/jquery.hashchange.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="${ctxStatic}/assets/plugins/jquery-jbox/2.3/jquery.jBox-2.3.min.js" ></script>
-
-<script src="${ctxStatic}/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
-<script src="${ctxStatic}/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
-<script src="${ctxStatic}/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-<script src="${ctxStatic}/assets/js/table-manage.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-<!-- ================== END BASE JS ================== -->
-
-<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-<script src="${ctxStatic}/assets/js/apps.min.js"></script>
-<!-- ================== END PAGE LEVEL JS ================== -->
+<%--==================================基础CSS库=======================================--%>
+<link href="${ctxStatic}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />

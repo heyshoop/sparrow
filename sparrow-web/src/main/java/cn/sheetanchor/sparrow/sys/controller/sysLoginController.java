@@ -53,7 +53,7 @@ public class sysLoginController extends BaseController {
 		if(principal != null && !principal.isMobileLogin()){
 			return "redirect:" + adminPath;
 		}
-		return "sys/sysAdminLogin";
+		return "sys/adminLogin";
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class sysLoginController extends BaseController {
 	        return renderString(response, model);
 		}
 
-		return "sys/sysAdminLogin";
+		return "sys/adminLogin";
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class sysLoginController extends BaseController {
 			}
 			return "redirect:" + adminPath + "/login";
 		}
-		return "sys/sysAdminIndex";
+		return "sys/adminIndex";
 	}
 
 	/**
