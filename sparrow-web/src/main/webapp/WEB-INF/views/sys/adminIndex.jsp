@@ -1,5 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<script src="${ctxStatic}/assets/js/matrix.js"></script>
+<script src="${ctxStatic}/assets/js/matrix.dashboard.js"></script>
+<script src="${ctxStatic}/assets/js/matrix.interface.js"></script>
+<script src="${ctxStatic}/assets/js/matrix.form_validation.js"></script>
+<script src="${ctxStatic}/assets/js/matrix.popover.js"></script>
+<script src="${ctxStatic}/assets/js/matrix.tables.js"></script>
 <%--
   Created by IntelliJ IDEA.
   User: Netuser
@@ -13,6 +19,7 @@
 <title>管理中心 ${fns:getConfig("title")}</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -170,19 +177,19 @@
           <div class="widget-content nopadding collapse in" id="collapseG2">
             <ul class="recent-posts">
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av1.jpg"> </div>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="${ctxStatic}/assets/img/demo/av1.jpg"> </div>
                 <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
                   <p><a href="#">This is a much longer one that will go on for a few lines.It has multiple paragraphs and is full of waffle to pad out the comment.</a> </p>
                 </div>
               </li>
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av2.jpg"> </div>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="${ctxStatic}/assets/img/demo/av2.jpg"> </div>
                 <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
                   <p><a href="#">This is a much longer one that will go on for a few lines.It has multiple paragraphs and is full of waffle to pad out the comment.</a> </p>
                 </div>
               </li>
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av4.jpg"> </div>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="${ctxStatic}/assets/img/demo/av4.jpg"> </div>
                 <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
                   <p><a href="#">This is a much longer one that will go on for a few lines.Itaffle to pad out the comment.</a> </p>
                 </div>
@@ -281,11 +288,11 @@
               </div>
               <div class="panel-content nopadding">
                 <ul class="contact-list">
-                  <li id="user-Alex" class="online"><a href="#"><img alt="" src="img/demo/av1.jpg" /> <span>Alex</span></a></li>
-                  <li id="user-Linda"><a href="#"><img alt="" src="img/demo/av2.jpg" /> <span>Linda</span></a></li>
-                  <li id="user-John" class="online new"><a href="#"><img alt="" src="img/demo/av3.jpg" /> <span>John</span></a><span class="msg-count badge badge-info">3</span></li>
-                  <li id="user-Mark" class="online"><a href="#"><img alt="" src="img/demo/av4.jpg" /> <span>Mark</span></a></li>
-                  <li id="user-Maxi" class="online"><a href="#"><img alt="" src="img/demo/av5.jpg" /> <span>Maxi</span></a></li>
+                  <li id="user-Alex" class="online"><a href="#"><img alt="" src="${ctxStatic}/assets/img/demo/av1.jpg" /> <span>Alex</span></a></li>
+                  <li id="user-Linda"><a href="#"><img alt="" src="${ctxStatic}/assets/img/demo/av2.jpg" /> <span>Linda</span></a></li>
+                  <li id="user-John" class="online new"><a href="#"><img alt="" src="${ctxStatic}/assets/img/demo/av3.jpg" /> <span>John</span></a><span class="msg-count badge badge-info">3</span></li>
+                  <li id="user-Mark" class="online"><a href="#"><img alt="" src="${ctxStatic}/assets/img/demo/av4.jpg" /> <span>Mark</span></a></li>
+                  <li id="user-Maxi" class="online"><a href="#"><img alt="" src="${ctxStatic}/assets/img/demo/av5.jpg" /> <span>Maxi</span></a></li>
                 </ul>
               </div>
             </div>
@@ -308,19 +315,19 @@
           <div class="widget-content nopadding fix_hgt">
             <ul class="recent-posts">
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av1.jpg"> </div>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="${ctxStatic}/assets/img/demo/av1.jpg"> </div>
                 <div class="article-post"> <span class="user-info">John Deo</span>
                   <p>Web Desginer &amp; creative Front end developer</p>
                 </div>
               </li>
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av2.jpg"> </div>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="${ctxStatic}/assets/img/demo/av2.jpg"> </div>
                 <div class="article-post"> <span class="user-info">John Deo</span>
                   <p>Web Desginer &amp; creative Front end developer</p>
                 </div>
               </li>
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av4.jpg"> </div>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="${ctxStatic}/assets/img/demo/av4.jpg"> </div>
                 <div class="article-post"> <span class="user-info">John Deo</span>
                   <p>Web Desginer &amp; creative Front end developer</p>
                 </div>
@@ -390,13 +397,13 @@
           <div class="widget-content tab-content">
             <div id="tab1" class="tab-pane active">
               <p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment.</p>
-              <img src="img/demo/demo-image1.jpg" alt="demo-image"/></div>
-            <div id="tab2" class="tab-pane"> <img src="img/demo/demo-image2.jpg" alt="demo-image"/>
+              <img src="${ctxStatic}/assets/img/demo/demo-image1.jpg" alt="demo-image"/></div>
+            <div id="tab2" class="tab-pane"> <img src="${ctxStatic}/assets/img/demo/demo-image2.jpg" alt="demo-image"/>
               <p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment.</p>
             </div>
             <div id="tab3" class="tab-pane">
               <p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment. </p>
-              <img src="img/demo/demo-image3.jpg" alt="demo-image"/></div>
+              <img src="${ctxStatic}/assets/img/demo/demo-image3.jpg" alt="demo-image"/></div>
           </div>
         </div>
       </div>
@@ -413,28 +420,6 @@
 </div>
 
 <!--end-Footer-part-->
-
-<script src="js/excanvas.min.js"></script> 
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.flot.min.js"></script> 
-<script src="js/jquery.flot.resize.min.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/fullcalendar.min.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/matrix.dashboard.js"></script> 
-<script src="js/jquery.gritter.min.js"></script> 
-<script src="js/matrix.interface.js"></script> 
-<script src="js/matrix.chat.js"></script> 
-<script src="js/jquery.validate.js"></script> 
-<script src="js/matrix.form_validation.js"></script> 
-<script src="js/jquery.wizard.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.popover.js"></script> 
-<script src="js/jquery.dataTables.min.js"></script> 
-<script src="js/matrix.tables.js"></script> 
 
 <script type="text/javascript">
   // This function is called from the pop-up menus to transfer to

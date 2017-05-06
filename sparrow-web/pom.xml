@@ -188,11 +188,11 @@
             <version>${mysql.driver.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
             <version>${oracle.driver.version}</version>
-        </dependency>
+        </dependency>-->
         <!--============persistence end============-->
 
         <!--============web begin============-->

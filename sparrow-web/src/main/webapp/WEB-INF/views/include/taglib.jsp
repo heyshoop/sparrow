@@ -15,7 +15,45 @@
 <script src="${ctxStatic}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+
+
+<script src="${ctxStatic}/assets/js/excanvas.min.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.ui.custom.js"></script>
+<script src="${ctxStatic}/assets/js/bootstrap.min.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.flot.min.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.flot.resize.min.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.gritter.min.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.peity.min.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.uniform.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.validate.min.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.wizard.js"></script>
+<script src="${ctxStatic}/assets/js/jquery.dataTables.min.js"></script>
+<script src="${ctxStatic}/assets/js/fullcalendar.min.js"></script>
+<script src="${ctxStatic}/assets/js/select2.min.js"></script>
+
+
+
 <%--==================================基础CSS库=======================================--%>
 <link href="${ctxStatic}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${ctxStatic}/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
 <link href="${ctxStatic}/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/css/fullcalendar.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/css/matrix-style.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/css/matrix-media.css" rel="stylesheet" />
+<link href="${ctxStatic}/assets/css/jquery.gritter.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
