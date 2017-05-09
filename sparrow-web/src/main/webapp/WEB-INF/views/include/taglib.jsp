@@ -16,7 +16,6 @@
 <script src="${ctxStatic}/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctxStatic}/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
 
-
 <script src="${ctxStatic}/assets/js/excanvas.min.js"></script>
 <script src="${ctxStatic}/assets/js/jquery.ui.custom.js"></script>
 <script src="${ctxStatic}/assets/js/bootstrap.min.js"></script>
@@ -43,10 +42,6 @@
 <link href="${ctxStatic}/assets/css/matrix-style.css" rel="stylesheet" />
 <link href="${ctxStatic}/assets/css/matrix-media.css" rel="stylesheet" />
 <link href="${ctxStatic}/assets/css/jquery.gritter.css" rel="stylesheet" />
-
-
-
-
 
 
 
